@@ -1,0 +1,159 @@
+<div class="container-fluid">
+    <div class="row fixed-top">
+        <hr class="verde m-0 p-0" />
+        <hr class="branco m-0 p-0" />
+        <hr class="vermelho m-0 p-0" />
+        <nav class="navbar navbar-expand-lg navbar-dark w-100">
+            <a href="/" class="navbar-brand m-0"><img src="/img/logo.png" class="logo" /></a>
+            <button class="navbar-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link amareloH" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- <a class="nav-link amareloH" href="#novidades">Novidades</a> -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link amareloH" href="#contato">Contato</a>
+                    </li>
+                    <li class="nav-item amareloH">
+                        <a class="nav-link amareloH dropdown-toggle" href="#" id='loginMenu' data-toggle='dropdown'
+                            aria-haspopup="true" aria-expanded="false">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z" />
+                                <path d="M13.784 14c-.497-1.27-1.988-3-5.784-3s-5.287 1.73-5.784 3h11.568z" />
+                                <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right LoginDrop">
+
+
+                            <% if(log==0){ %>
+                                <li class="px-3 py-2">
+                                    <div className='row'>
+                                        <div className='perfil'>
+                                            <img src="/img/logo.png" className='img-fluid perfilFT py-1' />
+                                        </div>
+                                    </div>
+
+                                    <form class="form" role="form" method="POST" action="/auth">
+                                        <div class='perfil'>
+
+                                        </div>
+                                        <br></br>
+                                        <div class="form-group">
+                                            <input id="emailInput" placeholder="Email"
+                                                class="form-control form-control-sm" type="email" name="email"
+                                                required=""></input>
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="passwordInput" placeholder="Senha"
+                                                class="form-control form-control-sm" type="password" name="senha"
+                                                required=""></input>
+                                        </div>
+                                        <div class='msg-login txt-white text-center my-5'>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit"
+                                                class="btn btn-primary btn-block btnLogin">Login</button>
+                                        </div>
+
+                                        <div class="form-group text-center">
+                                            <small><a href='/recuperar_senha' class='optionsLogin text-white'
+                                                    data-target="#modalPassword">Esqueceu a
+                                                    Senha?</a></small><br></br>
+                                            <small><a href='/cadastro' class='optionsLogin text-white '>Quero
+                                                    Cadastrar</a></small>
+                                        </div>
+
+                                    </form>
+                                </li>
+                                <% } else{ %>
+                                    <li class="px-3 py-2">
+
+                                        <div className='conatainer px-3 py-2'>
+                                            <div className='row'>
+                                                <div className='perfil'>
+                                                    <img src="/img/logo.png" className='img-fluid perfilFT py-1' />
+                                                </div>
+                                            </div>
+                                            <div className='opcoes mt-3' style='text-align:center'>
+                                                <%if((user.id==1)||(user.id==54)){%>
+                                                    <small>
+                                                        <h5><a href="/admin"
+                                                                class="text-white text-decoration-none font-weight-bold ">Admin</a>
+                                                        </h5>
+                                                    </small>
+                                                    <hr className='' style="background-color: white; width: 50px;">
+                                                    </hr>
+                                                    <small>
+                                                        <h5><a href="/users"
+                                                                class="text-white text-decoration-none font-weight-bold ">Usuarios</a>
+                                                        </h5>
+                                                    </small>
+                                                    <hr className='' style="background-color: white; width: 80px;">
+                                                    </hr>
+
+                                                    <%}%>
+                                                        <small>
+                                                            <h5><a href="/users"
+                                                                    class="text-white text-decoration-none font-weight-bold ">Meus Palpites</a>
+                                                            </h5>
+                                                        </small>
+                                                        <hr className='' style="background-color: white; width: 90px;">
+                                                        <small>
+                                                            <h5><a href="/concurso"
+                                                                    class="text-white text-decoration-none font-weight-bold ">Concurso</a>
+                                                            </h5>
+                                                        </small>
+                                                        <hr className='' style="background-color: white; width: 90px;">
+                                                        </hr>
+
+                                                        <small>
+                                                            <h5><a href="/logout"
+                                                                    class="text-white text-decoration-none font-weight-bold ">Sair</a>
+                                                            </h5>
+                                                        </small>
+                                                        <hr className='' style="background-color: white">
+                                                        </hr>
+                                                        <div className='row'>
+                                                            <div className='col-6'>
+                                                                <small>
+                                                                    <p className='text-white'></p>
+                                                                </small>
+                                                            </div>
+
+                                                            <div className='col-6'>
+                                                                <small>
+                                                                    <p className='text-white font-weight-bold'
+                                                                        style="color: white; font-weight: bold;">Pontos:
+                                                                        <%=user.pontos%>
+                                                                    </p>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <% } %>
+
+
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </div>
+</div>
