@@ -20,15 +20,19 @@
 
     <%- include('components/navbar.ejs'); %>
 
-    <br><br><br><br>
+    <br>
       <div class="container-fluid p-0 m-0 banner">
         <div class="text-center texto">
           <h1>SCUDERIA FERRARI CLUB</h1>
           <p>San Paolo - Brazil</p>
+          
         </div>
-
+        
+        <div class="img-logo">
+          <img class="img-fluid" src="/img/Logo_SAN-PAOLO_Brazil.webp" alt="">
       </div>
-
+      </div>
+      
       <br />
 
       <div class="container">
@@ -52,10 +56,14 @@
             </li>
             <% if(log==1){ %>
             <li class="nav-item waves-effect waves-light">
-              <a class="nav-link " id="contact-tab" data-toggle="tab" href="#eventos" role="tab" aria-controls="eventos"
+              <a class="nav-link " id="evento-tab" data-toggle="tab" href="#eventos" role="tab" aria-controls="eventos"
                 aria-selected="true">Eventos</a>
             </li>
             <%}%>
+            <li class="nav-item waves-effect waves-light">
+              <a class="nav-link " id="noticia-tab" data-toggle="tab" href="#noticia" role="tab" aria-controls="noticia"
+                aria-selected="true">Noticias</a>
+            </li>
             <li class="nav-item waves-effect waves-light">
               <a class="nav-link " id="calentario-tab" data-toggle="tab" href="#calendario" role="tab"
                 aria-controls="calendario" aria-selected="true">Calendario</a>
@@ -278,11 +286,72 @@
 
             </div>
 
+            <div class="tab-pane fade " id="noticia" role="tabpanel" aria-labelledby="noticia-tab">
+
+
+              
+
+                <div class="container py-5">
+                  <div class="row">
+                      <% news.forEach(news=>{ %>
+
+                          <div class="col-md-4 mt-5">
+                              <div class="card">
+                                  <a href="<%=news.link%>">
+                                  <img class="img-fluid" src="img/upload/novidades/<%=news.img%>"
+                                      alt="Notizia">
+                                  </a>
+
+                                  <div class="card-body">
+                                      <h3 class="card-title">
+                                          <%=news.titulo%>
+                                      </h3>
+                                      <h5 class="card-subtitle">
+                                          <%=news.subtitulo%>
+                                      </h5>
+                                      <div class="desc">
+                                          <p class="card-text mt-4">
+                                              <%=news.descricao%>
+
+                                          </p>
+                                      </div>
+                                      
+
+
+                                  </div>
+                              </div>
+                          </div>
+
+                          <%})%>
+                  </div>
+              </div>
+
+
+
+
+                
+
+
+                  
+
+
+
+
+
+
+
+
+                    <h4 class="m-4 text-center"></h4>
+
+
+
+            </div>
+
             <div class="tab-pane fade " id="calendario" role="tabpanel" aria-labelledby="calendario-tab">
 
               <div class="row">
               <div class="container w-100">
-                <table class="table table-striped text-center">
+                <table class="table table-striped text-center table_calendar">
                   <thead>
                     <tr>
                       <th scope="col-md-2">Data</th>

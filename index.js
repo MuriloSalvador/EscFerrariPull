@@ -6,8 +6,11 @@ const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const session = require('express-session')
 const adminAuth = require('./middleware/adminAuth')
+const fileUpload = require('express-fileupload')
+const multer = require('multer')
 
 //models
+const News = require("./database/news")
 const Event = require("./database/envento")
 const Pilotos = require("./database/pilotos")
 const Calendario = require("./database/calendario")
@@ -18,6 +21,7 @@ const loginRouter = require('./database/login');
 const router = require("./database/login");
 const { callbackify } = require("util");
 const RPalpite = require("./database/rPalpite");
+
 
 
 var msg = false
@@ -81,15 +85,18 @@ app.get("/", (req, res) => {
 
     Calendario.findAll().then(corridas => {
         Event.findAll().then(event => {
+            News.findAll().then(news =>{
+                if (req.session.user != undefined) {
+                    res.render('index', { corridas: corridas, log: 1, user: req.session.user, event: event, news: news })
+                }
+    
+                else {
+                    res.render('index', { corridas: corridas, log: 0, news: news  })
+                }
+            })
 
 
-            if (req.session.user != undefined) {
-                res.render('index', { corridas: corridas, log: 1, user: req.session.user, event: event })
-            }
-
-            else {
-                res.render('index', { corridas: corridas, log: 0 })
-            }
+            
 
         })
     })
@@ -122,7 +129,7 @@ app.get("/cadastro", (req, res) => {
 
 })
 
-app.post('/admin/cadastraResultado', adminAuth, (req, res) => {
+app.post('/admin/cadastraEvento', adminAuth, (req, res) => {
     var titulo = req.body.titulo
     var assunto = req.body.assunto
     var desc = req.body.descEvento
@@ -130,6 +137,7 @@ app.post('/admin/cadastraResultado', adminAuth, (req, res) => {
     var local = req.body.local
     var HorarioInit = req.body.horarioInit
     var HorarioEnd = req.body.horarioEnd
+    
 
 
 
@@ -142,7 +150,7 @@ app.post('/admin/cadastraResultado', adminAuth, (req, res) => {
                 data: data,
                 local: local,
                 horario_init: HorarioInit,
-                horario_end: HorarioEnd
+                horario_end: HorarioEnd,
             }).then(() => {
                 res.redirect("/admin")
             })
@@ -152,6 +160,46 @@ app.post('/admin/cadastraResultado', adminAuth, (req, res) => {
 
 
 })
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "public/img/upload/novidades")
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({ storage })
+
+app.post("/admin/addImage", upload.single("imgNews"), (req, res) => {
+    res.send("arquivo enviado, Continue o cadastro da Novidade")
+})
+
+app.post("/admin/cadastraNoticia", adminAuth, (req, res) => {
+    var titulo = req.body.tituloNews
+    var subtitulo = req.body.subTitle
+    var desc = req.body.descNews
+    var img = req.body.imgNews
+    var link = req.body.link
+
+
+
+    News.findAll().then(news => {
+        if (titulo != news.titulo) {
+            News.create({
+                titulo: titulo,
+                subtitulo: subtitulo,
+                descricao: desc,
+                img: img,
+                link: link
+            }).then(() => {
+                res.redirect('/admin')
+            })
+        }
+    })
+})
+
+
 
 app.get("/admin/editPilots/:id", adminAuth, (req, res) => {
 
@@ -185,7 +233,44 @@ app.post("/admin/deletarPiloto", adminAuth, (req, res) => {
                 res.redirect("/admin")
             })
         } else {
-            res.redirect("/")
+            res.send("erro Id Invalido")
+        }
+    }
+})
+
+app.post('/admin/deletarNews', adminAuth, (req, res) => {
+    var id = req.body.idNews
+
+    if (id != undefined) {
+        if (!isNaN(id)) {
+            News.destroy({
+                where: {
+                    id_news: id
+                }
+            }).then(() => {
+                res.redirect("/admin")
+            })
+        } else {
+            res.send("erro Id Invalido")
+        }
+    }
+})
+
+app.post("/admin/deletarEvento", adminAuth, (req, res) => {
+    var id = req.body.idEvento
+
+    if (id != undefined) {
+        if (!isNaN(id)) {
+            Event.destroy({
+                where: {
+                    id_evento: id
+                }
+            }).then(() => {
+                msg == true
+                res.redirect("/admin")
+            })
+        } else {
+            res.redirect('/')
         }
     }
 })
@@ -248,12 +333,20 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
 
 
 
+
+
 app.get("/admin", adminAuth, (req, res) => {
     msg == false
     Pilotos.findAll().then(pilots => {
         Usuario.findAll().then(users => {
             Calendario.findAll().then(calendar => {
-                res.render("admin/admin", { pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar });
+                Event.findAll().then(evento => {
+                    News.findAll().then(news => {
+                        res.render("admin/admin", { pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar, evento: evento, news: news });
+                    })
+
+                })
+
             })
 
         })

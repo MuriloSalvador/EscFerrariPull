@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 
-const connection = new Sequelize('fesf1', 'uesc', 'Matrix22', {
+const connection = new Sequelize('ferrariescuderia', 'root', '@Matrix22', {
 
-    host: 'mysql743.umbler.com',
+    host: 'localhost',
     dialect: 'mysql'
 })
 

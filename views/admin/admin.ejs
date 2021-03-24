@@ -20,8 +20,13 @@
 
         <%- include('../components/navbar.ejs'); %>
 
+            <br><br><br>
+            <div class="container">
+                <img src="/img/Logo_SAN-PAOLO_Brazil.webp" class="text-center w-100" alt="">
+            </div>
+
             <br><br><br><br><br>
-            <br><br><br><br><br>
+
             <h1 class="text-center">Admin: <%= adm.nome %>
                     <%= adm.sobrenome %>
             </h1>
@@ -46,6 +51,10 @@
                     <li class="nav-item waves-effect waves-light ">
                         <a class="nav-link" id="event-tab" data-toggle="tab" href="#event" role="tab"
                             aria-controls="event" aria-selected="false">Registrar Evento</a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light ">
+                        <a class="nav-link" id="noticia-tab" data-toggle="tab" href="#noticia" role="tab"
+                            aria-controls="noticia" aria-selected="false">Registrar Noticia</a>
                     </li>
 
                     <li class="nav-item waves-effect waves-light ">
@@ -286,8 +295,7 @@
 
                     <div class="tab-pane fade" id="event" role="tabpanel" aria-labelledby="event-tab">
                         <div class="container">
-
-                            <form method="POST" action="/admin/cadastraResultado">
+                            <form method="POST" action="/admin/cadastraEvento">
                                 <div class="row mt-2">
 
                                     <div class="col-md-6">
@@ -324,12 +332,158 @@
                                             class="form-control" id="exampleFormControlTextarea1"
                                             style='height: 100%'></textarea>
 
-                                        <button class="btn btn-primary btn-block btnLogin my-5 btn-md">
-                                            Enviar Evento
-                                        </button>
+
                                     </div>
+
+                                    <input type="submit" value="Enviar Evento"
+                                        class="btn btn-primary btn-block btnLogin my-5 btn-md">
                                 </div>
                             </form>
+                        </div>
+
+
+                        <div class="container py-5">
+                            <div class="row">
+                                <% evento.forEach(evento=>{ %>
+
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <img class="img-fluid" src="/img/ferrari_notizia.jpg" alt="Notizia">
+                                            <div class="card-body">
+                                                <h3 class="card-title">
+                                                    <%=evento.titulo%>
+                                                </h3>
+                                                <h5 class="card-subtitle">
+                                                    <%=evento.assunto%>
+                                                </h5>
+                                                <div class="desc">
+                                                    <%=evento.descricao%>
+                                                </div>
+                                                <p>Data: <%=evento.data%>
+                                                </p>
+
+
+                                                <p>
+                                                    Local: <%=evento.local%>
+                                                </p>
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        Horario:<br>
+                                                        <%=evento.horario_init%>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        Até:<br>
+                                                        <%=evento.horario_end%>
+                                                    </div>
+                                                </div>
+
+                                                <form method="POST" action="/admin/deletarEvento">
+                                                    <input type="hidden" name="idEvento"
+                                                        value="<%= evento.id_evento %>">
+                                                    <button class="btn btn-danger">Excluir</button>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <%})%>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="noticia" role="tabpanel" aria-labelledby="noticia-tab">
+                        <div class="container">
+                            <form method="post" enctype="multipart/form-data" action="/admin/addImage">
+                                <div class="custom-file mt-2">
+                                    <input type="file" name="imgNews" class="custom-file-input" id="validatedCustomFile"
+                                        accept="">
+                                    <label class="custom-file-label" for="validatedCustomFile">Registar Imagem no banco
+                                        de dados
+                                    </label>
+                                </div>
+                                <input type="submit" value="Enviar">
+                                <p class="text-red">^^^^^ Envie a foto antes de continuar</p>
+                            </form>
+                            <hr class="py-3">
+                            <form method="POST" action="/admin/cadastraNoticia">
+                                <div class="row mt-2">
+
+                                    <div class="col-md-6">
+                                        <input name="tituloNews" type="text" class="form-control"
+                                            placeholder="Titulo Da Noticia" />
+                                        <input name="subTitle" type="text" class="form-control mt-3"
+                                            placeholder="Subtitulo" />
+                                        <input name="link" type="text" class="form-control mt-3"
+                                            placeholder="Link Da noticia" />
+                                        <div class="custom-file mt-3">
+                                            <input type="file" name="imgNews" class="custom-file-input"
+                                                id="validatedCustomFile" accept="">
+                                            <label class="custom-file-label" for="validatedCustomFile">Escolha a Mesma
+                                                foto Novamente</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <textarea placeholder="Noticia" name="descNews" class="form-control"
+                                            id="exampleFormControlTextarea1" style='height: 100%'></textarea>
+
+
+                                    </div>
+                                    <input type="submit" value="Enviar Noticia"
+                                        class="btn btn-primary btn-block btnLogin my-5 btn-md">
+
+                                </div>
+                            </form>
+
+
+
+
+                        </div>
+
+                        <div class="container py-5">
+                            <h3>Novidades Publicadas: </h3>
+                            <div class="row">
+                                <% news.forEach(news=>{ %>
+
+                                    <div class="col-md-4 mt-5">
+                                        <div class="card">
+                                            <a href="<%=news.link%>">
+                                            <img class="img-fluid" src="img/upload/novidades/<%=news.img%>"
+                                                alt="Notizia">
+                                            </a>
+
+                                            <div class="card-body">
+                                                <h3 class="card-title">
+                                                    <%=news.titulo%>
+                                                </h3>
+                                                <h5 class="card-subtitle">
+                                                    <%=news.subtitulo%>
+                                                </h5>
+                                                <div class="desc">
+                                                    <p class="card-text mt-4">
+                                                        <%=news.descricao%>
+
+                                                    </p>
+                                                </div>
+                                                <form method="POST" action="/admin/deletarNews">
+                                                    <input type="hidden" name="idNews" value="<%= news.id_news %>">
+                                                    <button class="btn btn-danger">Excluir</button>
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <%})%>
+                            </div>
                         </div>
 
 
@@ -362,13 +516,13 @@
                                             <div class="col-md-3"></div>
                                             <div class="col-md-6">
                                                 <input name="situacao" type="text" class="form-control mt-3 text-center"
-                                                placeholder="Situação da corrida" />
+                                                    placeholder="Situação da corrida" />
                                             </div>
-                                            
+
                                             <div class="col-md-3"></div>
                                         </div>
                                     </div>
-                                   
+
 
 
 

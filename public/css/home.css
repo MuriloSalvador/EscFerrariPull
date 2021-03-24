@@ -77,7 +77,7 @@ color: #ec2300!important;
 }
 
 .banner{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/banner02.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-1465-CL-CS1.jpg");
   height: 45vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -87,7 +87,7 @@ color: #ec2300!important;
 
 @media only screen and (max-width: 600px) {
   .banner{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/banner02.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-1465-CL-CS1.jpg");
     height: 120vw;
     background-position: center;
     background-repeat: no-repeat;
@@ -104,6 +104,12 @@ color: #ec2300!important;
   transform: translate(-50%, -50%);
   color: white;
 
+}
+
+.table_calendar{
+  background-color: #ec2300;
+  color: #f1f1f1 !important;
+  font-family: 'Righteous', cursive;
 }
 
 .space{
@@ -197,12 +203,12 @@ box-shadow: 0px 0px 26px 1px rgba(0,0,0,0.5);
 } */
 
 .img-logo{
-  margin-top: 40PX;
+  padding-top: 53px;
 }
 
 @media screen and (max-width: 500px) {
   .img-logo{
-    margin-top: 0px !important;
+    padding-top: 48px;
   }
 
   .navbar{
@@ -230,8 +236,20 @@ box-shadow: 0px 0px 26px 1px rgba(0,0,0,0.5);
 }
 
 .news{
-  background-color: #181818;
+  background-color: #ec2300;
+  font-family: 'Righteous', cursive;
     
+}
+
+.img-conc{
+  width: 100px;
+  border-radius: 15%;
+}
+
+.vl{
+  border-left: 2px solid #fafafa;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .bandeira{
@@ -249,6 +267,7 @@ box-shadow: 0px 7px 17px -3px rgba(255,255,255,0.29);
   animation: fadeInUp; /* referring directly to the animation's @keyframe declaration */
   animation-duration: 2s; /* don't forget to set a duration! */
   bottom: 2vw;
+
 }
 
 .divisor{

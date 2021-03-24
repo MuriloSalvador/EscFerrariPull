@@ -4,8 +4,8 @@ const connection = require("./database")
 
 
 
-const Event = connection.define('eventos', {
-    id_evento: {
+const News = connection.define('news', {
+    id_news: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
@@ -14,33 +14,25 @@ const Event = connection.define('eventos', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    assunto: {
+    subtitulo: {
         type: Sequelize.STRING,
+        allowNull: false
+    },
+    img:{
+        type: Sequelize.BLOB,
         allowNull: false
     },
     descricao: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    data: {
-        type: Sequelize.DATEONLY,
-        allowNull: true
-    },
-    local: {
+    link:{
         type: Sequelize.STRING,
         allowNull: true
-    },
-    horario_init: {
-        type: Sequelize.TIME,
-        allowNull: true
-    },
-    horario_end: {
-        type: Sequelize.TIME,
-        allowNull: true
-    },
+    }
 
 });
 
-//Event.sync({force: true});
+//News.sync({force: true});
 
-module.exports = Event;
+module.exports = News;

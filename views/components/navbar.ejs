@@ -1,12 +1,10 @@
 <div class="container-fluid">
     <div class="row fixed-top">
-        
+
         <nav class="navbar navbar-expand-lg navbar-dark w-100">
-            
-            <div class="img-logo">
-                <img class="img-fluid" src="/img/Logo_SAN-PAOLO_Brazil.webp" alt="">
-            </div>
-            
+
+
+
             <button class="navbar-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -24,7 +22,7 @@
                     </li>
                     <li class="nav-item amareloH">
                         <a class="nav-link amareloH dropdown-toggle" href="#" id='loginMenu' data-toggle='dropdown'
-                            aria-haspopup="true" aria-expanded="false">                            
+                            aria-haspopup="true" aria-expanded="false">
                             Usuário
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right LoginDrop">
@@ -100,13 +98,8 @@
                                                     <%}%>
                                                         <small>
                                                             <h5><a href="/users"
-                                                                    class="text-white text-decoration-none font-weight-bold ">Meus Palpites</a>
-                                                            </h5>
-                                                        </small>
-                                                        <hr className='' style="background-color: white; width: 90px;">
-                                                        <small>
-                                                            <h5><a href="/concurso"
-                                                                    class="text-white text-decoration-none font-weight-bold ">Concurso</a>
+                                                                    class="text-white text-decoration-none font-weight-bold ">Meus
+                                                                    Palpites</a>
                                                             </h5>
                                                         </small>
                                                         <hr className='' style="background-color: white; width: 90px;">
@@ -147,6 +140,19 @@
                         </ul>
 
                     </li>
+
+
+                    <% if(log==1){ %>
+                        <div class="vl"></div>
+                        <li>
+                            <li class="nav-item">
+                                <a class="nav-link amareloH m-0 p-0" href="/concurso">
+                                    <img src="/img/513601ad-91a7-4db7-b76b-0418d509e72e.jfif" class="img-conc" alt="">
+                                </a>
+                            </li>
+                        </li>
+                        <%}%>
+
                 </ul>
             </div>
         </nav>
