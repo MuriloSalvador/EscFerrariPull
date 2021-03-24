@@ -196,8 +196,24 @@ box-shadow: 0px 0px 26px 1px rgba(0,0,0,0.5);
 
 } */
 
+.img-logo{
+  margin-top: 40PX;
+}
+
+@media screen and (max-width: 500px) {
+  .img-logo{
+    margin-top: 0px !important;
+  }
+
+  .navbar{
+    background-color: #181818;
+    height: auto !important;
+  }
+}
+
 .navbar{
   background-color: #181818;
+  height: 77px;
 }
 
 .navbar-nav .nav-link{
@@ -215,9 +231,7 @@ box-shadow: 0px 0px 26px 1px rgba(0,0,0,0.5);
 
 .news{
   background-color: #181818;
-    position: relative;
-    display: flex;
-    margin-top: -73px;
+    
 }
 
 .bandeira{
