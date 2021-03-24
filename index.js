@@ -557,18 +557,15 @@ app.post("/auth", (req, res) => {
                     pontos: user.pontos
                 }
 
-                res.redirect("/concurso")
+                res.redirect("/")
 
 
             } else {
-                res.redirect("/")
+                res.send("Erro Tente novamente mais tarde")
 
             }
         } else {
             res.redirect("/")
-            res.render("auth", {
-                msg: "Senha ou Email Incorreto, Tente Novamente"
-            })
         }
     })
 })
