@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize')
 
-const connection = new Sequelize('fesf1', 'uesc', 'Matrix22', {
+const connection = new Sequelize('ferrariescsp', 'uferrarisp', 'a1234567', {
 
     host: 'mysql743.umbler.com',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    timezone: '-03:00'
 })
 
 module.exports = connection;

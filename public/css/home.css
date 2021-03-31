@@ -73,11 +73,15 @@ body, html {
 
 a:hover{
 transition: 0.5s!important;
-color: #ec2300!important;
+color: #F8E518!important;
+}
+
+.hamburguerz{
+  background: linear-gradient(180deg, rgba(24,24,24,0.9150035014005602) 100%, rgba(255,37,19,0.6909138655462185) 100%);
 }
 
 .banner{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-1465-CL-CS1.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-Fronte.jpg");
   height: 45vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -112,6 +116,13 @@ color: #ec2300!important;
   font-family: 'Righteous', cursive;
 }
 
+.text_placar{
+  font-size: 50px;
+  color: #ec2300;
+  letter-spacing: 5px;
+  font-family: 'Righteous', cursive;
+}
+
 .space{
   display: flex;
   justify-content: space-between;
@@ -133,7 +144,7 @@ color: #ec2300!important;
 .nav-tabs .nav-link:hover{
   transition: 0.5s !important;
   background-color: #ec2300;
-  letter-spacing: 4px;
+  letter-spacing: 8px;
   color: #fafafa !important;
 }
 
@@ -224,10 +235,20 @@ box-shadow: 0px 0px 26px 1px rgba(0,0,0,0.5);
 
 .navbar-nav .nav-link{
   color: #ffffff !important;
+  font-family: 'Righteous', cursive;
+  letter-spacing: 3px;
+  transition: 0.25s;
 }
 
+.nav-item{
+  font-family: 'Righteous', cursive;
+  letter-spacing: 3px;
+}
+
+
 .navbar-nav .nav-link:hover{
-  color: #ec2300 !important;
+  letter-spacing: 5px;
+  color: #F8E518 !important;
   transition: 0.25s;
 }
 
@@ -239,6 +260,19 @@ box-shadow: 0px 0px 26px 1px rgba(0,0,0,0.5);
   background-color: #ec2300;
   font-family: 'Righteous', cursive;
     
+}
+
+.navbar{
+  background-color: unset;
+}
+
+.navbckg{
+  background-image: url('../img/nabar');
+  height: 6vw;
+  
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
 
 .img-conc{
@@ -410,9 +444,9 @@ justify-content: center;
 }
 
 .LoginDrop{
-  margin-top: -2vw;
+  margin-top: 10vw;
   margin-right: 3vw !important;
-  background: linear-gradient(180deg, rgba(24,24,24,1) 20%, rgba(226,10,37,0.9220063025210083) 100%);
+  background: linear-gradient(180deg, rgba(255,37,19,1) 0%, rgba(24,24,24,1) 60%);
   border: 1px solid;
 }
 

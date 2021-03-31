@@ -19,8 +19,8 @@
         <br><br><br>
         
         <div class="container">
-            <img class="img-fluid w-100" src="/img/Logo_SAN-PAOLO_Brazil.webp" alt="">
-            <br /><br /><br /><br /><br />
+            
+            <br /><br /><br />
             <br />
             <h2>Olá, <%=nome.nome%>
                     <%=nome.sobrenome%>
@@ -103,14 +103,14 @@
 
 
                         <div class="titulo w-100 m-0">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label>Selecione a Etapa que Vai Fazer Seu Palpite: </label>
                                 <select class="form-control" id="etapaP" name="etapaP">
                                     <% calendar.forEach(calendar=>{ %>
 
 
                                         <option value="<%=calendar.id%>" class="optionEtapa">
-                                            <%= calendar.local %>
+                                            GP <%=calendar.id%> - <%= calendar.local %>
                                         </option>
 
                                         <%})%>
@@ -121,7 +121,7 @@
 
 
 
-                        <table class="table table-dark w-100">
+                        <table class="table table-dark table-responsive-lg w-100">
                             <thead>
                                 <tr>
                                     <th scope="col hashtag" style="

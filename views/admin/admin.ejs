@@ -21,11 +21,8 @@
         <%- include('../components/navbar.ejs'); %>
 
             <br><br><br>
-            <div class="container">
-                <img src="/img/Logo_SAN-PAOLO_Brazil.webp" class="text-center w-100" alt="">
-            </div>
+            <br><br><br>
 
-            <br><br><br><br><br>
 
             <h1 class="text-center">Admin: <%= adm.nome %>
                     <%= adm.sobrenome %>
@@ -210,6 +207,17 @@
                                             <br></br><br></br><br></br>
                                             <div class='col-12'>
                                                 <div class='row'>
+                                                    <label>Selecione a Etapa do Resultado: </label>
+                                                    <select class="form-control" id="etapa" name="etapa">
+                                                        <% calendar.forEach(calendar=>{ %>
+
+
+                                                            <option value="<%=calendar.id%>" class="optionEtapa">
+                                                                GP <%=calendar.id%> | <%= calendar.local %>
+                                                            </option>
+
+                                                            <%})%>
+                                                    </select> <br><br><br>
                                                     <input name="rp1" type="number" class="mb-2 form-control"
                                                         placeholder="Primeiro colocado:" />
                                                     <div class='col-md-6'>
@@ -224,8 +232,7 @@
                                                         placeholder="Pole Position:" />
                                                     <input name="rp5" type="number" class="mb-2 form-control"
                                                         placeholder="Volta Mais Rapida:" />
-                                                    <input name="etapa" type="number" class="form-control"
-                                                        placeholder="Etapa da corrida" />
+
                                                 </div>
                                             </div>
                                         </div>
@@ -399,7 +406,7 @@
 
                     <div class="tab-pane fade" id="noticia" role="tabpanel" aria-labelledby="noticia-tab">
                         <div class="container">
-                            <form method="post" enctype="multipart/form-data" action="/admin/addImage">
+                            <form method="POST" enctype="multipart/form-data" action="/admin/addImage">
                                 <div class="custom-file mt-2">
                                     <input type="file" name="imgNews" class="custom-file-input" id="validatedCustomFile"
                                         accept="">
@@ -455,8 +462,8 @@
                                     <div class="col-md-4 mt-5">
                                         <div class="card">
                                             <a href="<%=news.link%>">
-                                            <img class="img-fluid" src="img/upload/novidades/<%=news.img%>"
-                                                alt="Notizia">
+                                                <img class="img-fluid" src="img/upload/novidades/<%=news.img%>"
+                                                    alt="Notizia">
                                             </a>
 
                                             <div class="card-body">

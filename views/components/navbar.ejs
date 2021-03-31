@@ -1,16 +1,16 @@
 <div class="container-fluid">
     <div class="row fixed-top">
 
-        <nav class="navbar navbar-expand-lg navbar-dark w-100">
+        <nav class="navbar navbar-expand-lg navbar-dark w-100 navbckg p-2">
 
 
 
-            <button class="navbar-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarNav"
+            <button class="navbar-toggler m-2 hamburguerz" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav pb-4">
                     <li class="nav-item ">
                         <a class="nav-link amareloH" href="/">Home</a>
                     </li>
@@ -23,7 +23,7 @@
                     <li class="nav-item amareloH">
                         <a class="nav-link amareloH dropdown-toggle" href="#" id='loginMenu' data-toggle='dropdown'
                             aria-haspopup="true" aria-expanded="false">
-                            Usuário
+                            Prognostico 2021
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right LoginDrop">
 
@@ -35,8 +35,9 @@
                                             <img src="/img/logo.png" className='img-fluid perfilFT py-1' />
                                         </div>
                                     </div>
+                                    
 
-                                    <form class="form" role="form" method="POST" action="/auth">
+                                    <form class="form pt-5" role="form" method="POST" action="/auth">
                                         <div class='perfil'>
 
                                         </div>
@@ -81,21 +82,22 @@
                                             <div className='opcoes mt-3' style='text-align:center'>
                                                 <%if((user.id==1)||(user.id==54)){%>
                                                     <small>
-                                                        <h5><a href="/admin"
+                                                        <h5 class="pt-5"><a href="/admin"
                                                                 class="text-white text-decoration-none font-weight-bold ">Admin</a>
                                                         </h5>
                                                     </small>
-                                                    <hr className='' style="background-color: white; width: 50px;">
-                                                    </hr>
-                                                    <small>
-                                                        <h5><a href="/users"
-                                                                class="text-white text-decoration-none font-weight-bold ">Usuarios</a>
-                                                        </h5>
-                                                    </small>
+
                                                     <hr className='' style="background-color: white; width: 80px;">
                                                     </hr>
 
                                                     <%}%>
+                                                        <small>
+                                                            <h5 class="pt-5"><a href="/leaderboard"
+                                                                    class="text-white text-decoration-none font-weight-bold "> Placar Prognostico </a>
+                                                            </h5>
+                                                        </small>
+                                                        <hr className='' style="background-color: white; width: 90px;">
+                                                        </hr>
                                                         <small>
                                                             <h5><a href="/users"
                                                                     class="text-white text-decoration-none font-weight-bold ">Meus
@@ -145,11 +147,11 @@
                     <% if(log==1){ %>
                         <div class="vl"></div>
                         <li>
-                            <li class="nav-item">
-                                <a class="nav-link amareloH m-0 p-0" href="/concurso">
-                                    <img src="/img/513601ad-91a7-4db7-b76b-0418d509e72e.jfif" class="img-conc" alt="">
-                                </a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link amareloH m-0 p-0" href="/concurso">
+                                <img src="/img/513601ad-91a7-4db7-b76b-0418d509e72e.jfif" class="img-conc" alt="">
+                            </a>
+                        </li>
                         </li>
                         <%}%>
 

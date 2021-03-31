@@ -8,6 +8,8 @@ const session = require('express-session')
 const adminAuth = require('./middleware/adminAuth')
 const fileUpload = require('express-fileupload')
 const multer = require('multer')
+const nodemailer = require('nodemailer');
+
 
 //models
 const News = require("./database/news")
@@ -21,6 +23,7 @@ const loginRouter = require('./database/login');
 const router = require("./database/login");
 const { callbackify } = require("util");
 const RPalpite = require("./database/rPalpite");
+const Sequelize = require("sequelize")
 
 
 
@@ -85,18 +88,18 @@ app.get("/", (req, res) => {
 
     Calendario.findAll().then(corridas => {
         Event.findAll().then(event => {
-            News.findAll().then(news =>{
+            News.findAll().then(news => {
                 if (req.session.user != undefined) {
                     res.render('index', { corridas: corridas, log: 1, user: req.session.user, event: event, news: news })
                 }
-    
+
                 else {
-                    res.render('index', { corridas: corridas, log: 0, news: news  })
+                    res.render('index', { corridas: corridas, log: 0, news: news })
                 }
             })
 
 
-            
+
 
         })
     })
@@ -104,8 +107,32 @@ app.get("/", (req, res) => {
 });
 
 
+const user = "murilosbagodi@hotmail.com"
+const pass = "$$%%123+-/money"
 
+const transporter = nodemailer.createTransport({
+    host: "SMTP.office365.com",
+    port: "587",
+    auth: { user: user, pass: pass }
+})
 
+app.post('/env', (req, res) => {
+    var email = req.body.txtEmail
+    var assunto = req.body.txtAssunto
+    var textEmail = req.body.txtMsg
+
+    transporter.sendMail({
+        from: email, 
+        to: 'murilosbagodi@hotmail.com',
+        replyTo: 'bagodi@globo.com',
+        subject: assunto,
+        text: textEmail
+    }).then(() => {
+        res.send('Email enviado com sucesso')
+    }).catch(() => {
+        res.send('Aconteceu algum erro, tente novamente mais tarde')
+    })
+})
 
 app.get("/cadastro", (req, res) => {
 
@@ -137,7 +164,7 @@ app.post('/admin/cadastraEvento', adminAuth, (req, res) => {
     var local = req.body.local
     var HorarioInit = req.body.horarioInit
     var HorarioEnd = req.body.horarioEnd
-    
+
 
 
 
@@ -342,7 +369,34 @@ app.get("/admin", adminAuth, (req, res) => {
             Calendario.findAll().then(calendar => {
                 Event.findAll().then(evento => {
                     News.findAll().then(news => {
-                        res.render("admin/admin", { pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar, evento: evento, news: news });
+                        async function siduhfuis9() {
+                            const solta = await Palpite.findAll({
+                                attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
+                                group: ['idUsuario'],
+                                raw: true,
+                                order: Sequelize.literal('total desc')
+                            })
+                            console.log(solta)
+                            solta.forEach(solta => {
+                                solta.idUsuario
+                                console.log("id: ", solta.idUsuario, "total de pontos: ", solta.total)
+                                Usuario.update({ pontos: solta.total }, {
+
+                                    where: {
+                                        id: solta.idUsuario
+
+                                    }
+                                })
+                            });
+
+                            res.render("admin/admin", {
+                                pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar,
+                                evento: evento, news: news, cont: 1
+                            });
+                        }
+
+                        console.log(siduhfuis9())
+
                     })
 
                 })
@@ -356,9 +410,31 @@ app.get("/admin", adminAuth, (req, res) => {
 
 })
 
+app.get("/leaderboard", adminAuth, (req, res) => {
+    Usuario.findAll().then(usr => {
+        async function orderPoits() {
+            const usLead = await Usuario.findAll({
+                attributes: ['id', 'nome', 'sobrenome', 'pontos'],
+                raw: true,
+                order: [['pontos', 'DESC']]
+            })
+            console.log(usLead)
+            res.render("leaderboard", { usr: usr, log: 1, user: req.session.user, cont: 1, leader: usLead })
+        }
+
+
+
+        console.log(orderPoits())
+
+
+
+    })
+
+})
+
 app.get("/users", adminAuth, (req, res) => {
     Palpite.findAll({ where: { idUsuario: req.session.user.id } }).then(palpites => {
-        res.render("users/index", { palpites: palpites, log: 1, user: req.session.user });
+        res.render("users/index", { palpites: palpites, log: 1, user: req.session.user, cont: 1 });
 
     })
 
@@ -470,22 +546,22 @@ app.post("/cadastrarUsuario", (req, res) => {
     var senha = bcrypt.hashSync(req.body.senha);
     var nome = req.body.nome;
     var sobrenome = req.body.sobrenome;
-    var gender = req.body.gender;
-    var tamanho = req.body.tamanho;
-    var nacionalidade = req.body.nacionalidade;
-    var nascimentoDate = req.body.nascimentoDate;
-    var rg = req.body.rg;
-    var cpf = req.body.cpf;
-    var endereco = req.body.endereco;
-    var bairro = req.body.bairro;
-    var numero = req.body.numero;
-    var complemento = req.body.complemento;
-    var cep = req.body.cep;
-    var telefone = req.body.telefone;
-    var prop = req.body.prop;
-    var socio1 = req.body.socio1;
-    var socio2 = req.body.socio2;
-    var cv = req.body.cv
+    // var gender = req.body.gender;
+    // var tamanho = req.body.tamanho;
+    // var nacionalidade = req.body.nacionalidade;
+    // var nascimentoDate = req.body.nascimentoDate;
+    // var rg = req.body.rg;
+    // var cpf = req.body.cpf;
+    // var endereco = req.body.endereco;
+    // var bairro = req.body.bairro;
+    // var numero = req.body.numero;
+    // var complemento = req.body.complemento;
+    // var cep = req.body.cep;
+    // var telefone = req.body.telefone;
+    // var prop = req.body.prop;
+    // var socio1 = req.body.socio1;
+    // var socio2 = req.body.socio2;
+    // var cv = req.body.cv
 
     Usuario.findOne({ where: { email: email } }).then(user => {
         if (user == undefined) {
@@ -494,22 +570,22 @@ app.post("/cadastrarUsuario", (req, res) => {
                 senha: senha,
                 nome: nome,
                 sobrenome: sobrenome,
-                genero: gender,
-                camiseta: tamanho,
-                nacionalidade: nacionalidade,
-                dataNascimento: nascimentoDate,
-                rg: rg,
-                cpf: cpf,
-                endereco: endereco,
-                bairro: bairro,
-                numero: numero,
-                complemento: complemento,
-                cep: cep,
-                celular: telefone,
-                portFerrari: prop,
-                socio1: socio1,
-                socio2: socio2,
-                cv: cv
+                // genero: gender,
+                // camiseta: tamanho,
+                // nacionalidade: nacionalidade,
+                // dataNascimento: nascimentoDate,
+                // rg: rg,
+                // cpf: cpf,
+                // endereco: endereco,
+                // bairro: bairro,
+                // numero: numero,
+                // complemento: complemento,
+                // cep: cep,
+                // celular: telefone,
+                // portFerrari: prop,
+                // socio1: socio1,
+                // socio2: socio2,
+                // cv: cv
 
             }).then(() => {
                 msg = true
@@ -538,7 +614,7 @@ app.post("/auth", (req, res) => {
     Usuario.findOne({ where: { email: email } }).then(user => {
         if (user.senha == null) {
             var senhaBurra = bcrypt.hashSync(req.body.senha);
-            console.log('essa é minha senh: ', senha)
+
 
             Usuario.update({ senha: senhaBurra }, {
                 where: {
@@ -557,7 +633,7 @@ app.post("/auth", (req, res) => {
                     pontos: user.pontos
                 }
 
-                res.redirect("/")
+                res.redirect("/concurso")
 
 
             } else {
@@ -570,15 +646,15 @@ app.post("/auth", (req, res) => {
     })
 })
 
-var total = 0
 
+var auxTotal
 Usuario.findAll().then(usCal => {
 
     usCal.forEach(calculoT => {
-        total = calculoT.pontos
-        t = total
+        auxTotal = calculoT.pontos
+        t = auxTotal
 
-        console.log("id: ", calculoT.id, "pontos acumulados: ", total)
+        console.log("id: ", calculoT.id, "pontos acumulados: ", auxTotal)
 
     })
 })
@@ -591,6 +667,8 @@ app.post("/cadastraresultado", adminAuth, (req, res) => {
     var rp4 = req.body.rp4
     var rp5 = req.body.rp5
     var etapaR = req.body.etapa
+    var total = auxTotal
+    console.log("total do us: ", total)
 
 
     rCorrida.create({
@@ -667,16 +745,26 @@ app.post("/cadastraresultado", adminAuth, (req, res) => {
 
             console.log('total de pontos por etapa: ', pontosDeEtapa, 'do id: ', idUser)
             //insert into
+            if (etapaR == 1) {
+                Palpite.update({ pontos1: pontosDeEtapa }, {
+
+                    where: {
+                        etapa: etapaR, idUsuario: idUser
+                    }
+                })
+            }
 
             Palpite.update({ pontos1: pontosDeEtapa }, {
 
                 where: {
-                    idUsuario: idUser
+                    etapa: etapaR, idUsuario: idUser
                 }
             })
+            console.log("pontos totais pontos 2: ", total)
             Palpite.update({ pontos2: total }, {
 
                 where: {
+                    etapa: etapaR,
                     idUsuario: idUser
                 }
             })
@@ -687,15 +775,51 @@ app.post("/cadastraresultado", adminAuth, (req, res) => {
             console.log(to)
 
 
-            Usuario.update({ pontos: to }, {
 
-                where: {
-                    id: idUser
-                }
-            })
+
+            // async function siduhfuis9() {
+            //     const solta = await Palpite.findAll({
+            //         attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
+            //         group: ['idUsuario'],
+            //         raw: true,
+            //         order: Sequelize.literal('total desc')
+            //     })
+            //     console.log(solta)
+            //     solta.forEach(solta => {
+            //         solta.idUsuario
+            //         console.log("id: ", solta.idUsuario, "total de pontos: ", solta.total)
+            //         Usuario.update({ pontos: solta.total }, {
+
+            //             where: {
+            //                 id: solta.idUsuario
+
+            //             }
+            //         })
+            //     });
+            // }
+
+            // console.log(siduhfuis9())
+
             console.log(idUser, p1, p2, p3, p4, p5, pontosDeEtapa)
         });
+
+
     })
+
+    // async function siduhfuis9() {
+    //     const solta = await Palpite.findAll({
+    //         attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
+    //         group: ['idUsuario'],
+    //         raw: true,
+    //         order: Sequelize.literal('total desc')
+
+    //     })
+    //     console.log(solta)
+    // }
+
+    // console.log(siduhfuis9)
+
+
 
 
 
@@ -713,6 +837,28 @@ app.get("/calc", (req, res) => {
 
 })
 
+// async function siduhfuis9() { const solta = await Palpite.findAll({
+//     attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
+//     group : ['idUsuario'],
+//     raw: true,
+//     order: Sequelize.literal('total desc')
+//   })
+//   console.log(solta)
+//   solta.forEach(solta => {
+//       solta.idUsuario
+//       console.log("id: ",solta.idUsuario,"total de pontos: ", solta.total)
+//       Usuario.update({ pontos: solta.total }, {
+
+//         where: {
+//             id: solta.idUsuario
+//         }
+
+//     })
+//   });
+
+// }
+
+// console.log(siduhfuis9())
 
 
 
@@ -726,3 +872,5 @@ app.get("/logout", (req, res) => {
 app.listen(3000, () => {
     console.log("App rodando")
 })
+
+
