@@ -12,6 +12,8 @@ const nodemailer = require('nodemailer');
 require('dotenv').config()
 
 
+
+
 //models
 const News = require("./database/news")
 const Event = require("./database/envento")
@@ -49,8 +51,8 @@ app.set('view engine', 'ejs')
 //Sessions
 
 app.use(session({
-    secret: "$$%%123+-/QualQuerCoisa",
-    cookie: { maxAge: 7200000 }
+    secret: process.env.SECRET_SESSION,
+    cookie: { maxAge: 1800000 }
 }))
 app.use(express.static('public'))
 
@@ -58,9 +60,8 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-console.log(process.env.MYSQL_LOCAL)
-
 app.get("/", (req, res) => {
+    res.redirect("https://escferrarisp-com-br.umbler.net" + req.url);
 
     // var etapa = 1
 
@@ -110,8 +111,8 @@ app.get("/", (req, res) => {
 });
 
 
-const user = "murilosbagodi@hotmail.com"
-const pass = "$$%%123+-/money"
+const user = process.env.SEND_EMAIL
+const pass = process.env.SEND_PASS
 
 const transporter = nodemailer.createTransport({
     host: "SMTP.office365.com",
@@ -126,8 +127,8 @@ app.post('/env', (req, res) => {
 
     transporter.sendMail({
         from: email,
-        to: 'murilosbagodi@hotmail.com',
-        replyTo: 'bagodi@globo.com',
+        to: process.env.SEND_EMAIL,
+        replyTo: process.env.SEND_REPLY,
         subject: assunto,
         text: textEmail
     }).then(() => {
@@ -136,6 +137,8 @@ app.post('/env', (req, res) => {
         res.send('Aconteceu algum erro, tente novamente mais tarde')
     })
 })
+
+
 
 app.get("/cadastro", (req, res) => {
 
@@ -359,6 +362,7 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
         }
     })
 })
+
 
 
 
@@ -874,7 +878,7 @@ app.get("/logout", (req, res) => {
 
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT_, () => {
     console.log("App rodando")
 })
 
