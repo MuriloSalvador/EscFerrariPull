@@ -9,6 +9,7 @@ const adminAuth = require('./middleware/adminAuth')
 const fileUpload = require('express-fileupload')
 const multer = require('multer')
 const nodemailer = require('nodemailer');
+require('dotenv').config()
 
 
 //models
@@ -56,6 +57,8 @@ app.use(express.static('public'))
 // Body Parser --- Sem o Body Parser a requisição não vai reconhecer json então não vai funcionar
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+console.log(process.env.MYSQL_LOCAL)
 
 app.get("/", (req, res) => {
 
@@ -122,7 +125,7 @@ app.post('/env', (req, res) => {
     var textEmail = req.body.txtMsg
 
     transporter.sendMail({
-        from: email, 
+        from: email,
         to: 'murilosbagodi@hotmail.com',
         replyTo: 'bagodi@globo.com',
         subject: assunto,
@@ -610,40 +613,42 @@ app.post("/cadastrarUsuario", (req, res) => {
 app.post("/auth", (req, res) => {
     var email = req.body.email
     var senha = req.body.senha
-
-    Usuario.findOne({ where: { email: email } }).then(user => {
-        if (user.senha == null) {
-            var senhaBurra = bcrypt.hashSync(req.body.senha);
-
-
-            Usuario.update({ senha: senhaBurra }, {
-                where: {
-                    email: email
-                }
-            })
-        }
-        else if (user != undefined) {
-            var correct = bcrypt.compareSync(senha, user.senha)
-            if (correct) {
-                req.session.user = {
-                    id: user.id,
-                    email: user.email,
-                    nome: user.nome,
-                    sobrenome: user.sobrenome,
-                    pontos: user.pontos
-                }
-
-                res.redirect("/concurso")
+    async function log() {
+        await Usuario.findOne({ where: { email: email } }).then(user => {
+            if (user.senha == null) {
+                var senhaBurra = bcrypt.hashSync(req.body.senha);
 
 
-            } else {
-                res.send("Erro Tente novamente mais tarde")
-
+                Usuario.update({ senha: senhaBurra }, {
+                    where: {
+                        email: email
+                    }
+                })
             }
-        } else {
-            res.redirect("/")
-        }
-    })
+            else if (user != undefined) {
+                var correct = bcrypt.compareSync(senha, user.senha)
+                if (correct) {
+                    req.session.user = {
+                        id: user.id,
+                        email: user.email,
+                        nome: user.nome,
+                        sobrenome: user.sobrenome,
+                        pontos: user.pontos
+                    }
+
+                    res.redirect("/concurso")
+
+
+                } else {
+                    res.send("Erro Tente novamente mais tarde")
+
+                }
+            } else {
+                res.redirect("/")
+            }
+        })
+    }
+    return (log())
 })
 
 
