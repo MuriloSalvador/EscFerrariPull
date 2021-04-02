@@ -42,6 +42,7 @@ connection
     .catch((msgErro) => {
         console.log(msgErro)
     })
+app.use('/favicon.ico', express.static("public/img/favicon.ico"))
 
 app.use('/login', loginRouter)
 app.set('view engine', 'ejs')
@@ -61,7 +62,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get("/", (req, res) => {
-    // res.redirect("https://escferrarisp-com-br.umbler.net" + req.url);
+    process.env.TEST_LOGIN
 
     // var etapa = 1
 
@@ -114,20 +115,22 @@ app.get("/", (req, res) => {
 const user = process.env.SEND_EMAIL
 const pass = process.env.SEND_PASS
 
-const transporter = nodemailer.createTransport({
-    host: "SMTP.office365.com",
-    port: "587",
-    auth: { user: user, pass: pass }
-})
+
 
 app.post('/env', (req, res) => {
+    const transporter = nodemailer.createTransport({
+        host: "SMTP.office365.com",
+        port: "587",
+        auth: { user: user, pass: pass }
+    })
     var email = req.body.txtEmail
     var assunto = req.body.txtAssunto
     var textEmail = req.body.txtMsg
+    var toto = ['murilosbagodi@hotmail.com ','bagodi@globo.com']
 
     transporter.sendMail({
         from: email,
-        to: process.env.SEND_EMAIL,
+        to: toto,
         replyTo: process.env.SEND_REPLY,
         subject: assunto,
         text: textEmail
@@ -361,6 +364,73 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
             })
         }
     })
+})
+
+
+const transporter1 = nodemailer.createTransport({
+    host: "SMTP.office365.com",
+    port: "587",
+    auth: { user: user, pass: pass }
+})
+
+
+// async function getEmails() {
+//     const emails = await Usuario.findAll({
+//         attributes: ['email'],
+//         group: ['email'],
+//         raw: true,
+//         order: Sequelize.literal('email DESC')
+//     })
+//     console.log(emails)
+//     emails.forEach(element => {
+        
+//     });
+
+
+
+// }
+
+
+app.post("/admin/envAll", adminAuth, (req, res) => {
+    Usuario.findAll({ where: { email } }).then(mails => {
+        var assunto = req.body.assuntoMail
+        var corpo = req.body.corpoMail
+        var resultado = req.body.resultadoPDF
+
+        async function getEmails() {
+            const emails = await Usuario.findAll({
+                attributes: ['email'],
+                group: ['email'],
+                raw: true,
+                order: Sequelize.literal('email DESC')
+            })
+            console.log(emails)
+            var toto = []
+            emails.forEach(element => {
+                toto = element.email
+                console.log(toto+',')
+                
+                transporter1.sendMail({
+                    from: email,
+                    to: "'"+toto+"'"+',',
+                    replyTo: 'marioantonio@enas.org.br',
+                    subject: assunto,
+                    text: corpo
+                }).then(() => {
+                    res.send('Email enviado com sucesso')
+                }).catch(() => {
+                    res.send('Aconteceu algum erro, tente novamente mais tarde')
+                })
+            });
+        }
+
+        getEmails()
+
+
+
+        
+    })
+
 })
 
 
@@ -640,7 +710,7 @@ app.post("/auth", (req, res) => {
                         pontos: user.pontos
                     }
 
-                    res.redirect("/concurso")
+                    res.redirect("/users")
 
 
                 } else {

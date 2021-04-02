@@ -32,33 +32,39 @@
             </h3>
             <br><br><br><br><br>
             <div class="tabs">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link active" id="pilotos-tab" data-toggle="tab" href="#pilotos" role="tab"
-                            aria-controls="pilotos" aria-selected="true">Pilotos</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                            aria-controls="profile" aria-selected="false">Registrar Resultado</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab"
-                            aria-controls="users" aria-selected="false">Usuarios</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="event-tab" data-toggle="tab" href="#event" role="tab"
-                            aria-controls="event" aria-selected="false">Registrar Evento</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="noticia-tab" data-toggle="tab" href="#noticia" role="tab"
-                            aria-controls="noticia" aria-selected="false">Registrar Noticia</a>
-                    </li>
+                <div class="container">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link active" id="pilotos-tab" data-toggle="tab" href="#pilotos" role="tab"
+                                aria-controls="pilotos" aria-selected="true">Pilotos</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Registrar Resultado</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab"
+                                aria-controls="users" aria-selected="false">Usuarios</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="envMail-tab" data-toggle="tab" href="#envMail" role="tab"
+                                aria-controls="envMail" aria-selected="false">Enviar email</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="event-tab" data-toggle="tab" href="#event" role="tab"
+                                aria-controls="event" aria-selected="false">Registrar Evento</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="noticia-tab" data-toggle="tab" href="#noticia" role="tab"
+                                aria-controls="noticia" aria-selected="false">Registrar Noticia</a>
+                        </li>
 
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="calendario-tab" data-toggle="tab" href="#calendario" role="tab"
-                            aria-controls="event" aria-selected="false">Calendario de corridas</a>
-                    </li>
-                </ul>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="calendario-tab" data-toggle="tab" href="#calendario" role="tab"
+                                aria-controls="event" aria-selected="false">Calendario de corridas</a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade active show" id="pilotos" role="tabpanel" aria-labelledby="pilotos-tab">
                         <br><br><br><br>
@@ -295,6 +301,58 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="envMail" role="tabpanel" aria-labelledby="envMail-tab">
+                        <div class="container">
+                            <form action="/admin/envMail" method="POST">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input name="assuntoMail" type="text" class="form-control"
+                                            placeholder="Assunto do email / Comunicado" />
+                                        <input name="assunto" type="text" class="form-control mt-3"
+                                            placeholder="Assunto" />
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input name="data" type="date" class="form-control mt-3"
+                                                    placeholder="Data" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input name="local" type="text" class="form-control mt-3"
+                                                    placeholder="Local" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input name="horarioInit" type="datetime" class="form-control mt-3"
+                                                    placeholder="Horario de Inicio" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input name="horarioEnd" type="datetime" class="form-control mt-3"
+                                                    placeholder="Horario de Termino" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <textarea placeholder="Descrição do Evento" name="descEvento"
+                                            class="form-control" id="exampleFormControlTextarea1"
+                                            style='height: 100%'></textarea>
+
+
+                                    </div>
+
+                                    <input type="submit" value="Enviar Evento"
+                                        class="btn btn-primary btn-block btnLogin my-5 btn-md">
+
+
+                                </div>
+                            </form>
                         </div>
 
 
