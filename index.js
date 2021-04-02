@@ -526,6 +526,8 @@ app.get("/concurso", adminAuth, (req, res) => {
 
         })
 
+    }).catch((err)=>{
+        console.log(err)
     })
 
 })
