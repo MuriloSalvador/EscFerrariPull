@@ -520,16 +520,11 @@ app.get("/users", adminAuth, (req, res) => {
 app.get("/concurso", adminAuth, (req, res) => {
     Pilotos.findAll().then(pilots => {
         Calendario.findAll().then(calendar => {
-            RPalpite.findAll().then(result => {
-                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '', result: result })
-            })
-
+                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: ''})
         })
-
     }).catch((err)=>{
-        console.log(err)
+        res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, Tente novamente mais tarde'})
     })
-
 })
 
 app.get("/session", (req, res) => {
@@ -712,7 +707,7 @@ app.post("/auth", (req, res) => {
                         pontos: user.pontos
                     }
 
-                    res.redirect("/users")
+                    res.redirect("/concurso")
 
 
                 } else {
