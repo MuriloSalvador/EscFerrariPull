@@ -32,33 +32,43 @@
             </h3>
             <br><br><br><br><br>
             <div class="tabs">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link active" id="pilotos-tab" data-toggle="tab" href="#pilotos" role="tab"
-                            aria-controls="pilotos" aria-selected="true">Pilotos</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                            aria-controls="profile" aria-selected="false">Registrar Resultado</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab"
-                            aria-controls="users" aria-selected="false">Usuarios</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="event-tab" data-toggle="tab" href="#event" role="tab"
-                            aria-controls="event" aria-selected="false">Registrar Evento</a>
-                    </li>
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="noticia-tab" data-toggle="tab" href="#noticia" role="tab"
-                            aria-controls="noticia" aria-selected="false">Registrar Noticia</a>
-                    </li>
+                <div class="container">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link active" id="pilotos-tab" data-toggle="tab" href="#pilotos" role="tab"
+                                aria-controls="pilotos" aria-selected="true">Pilotos</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Registrar Resultado</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab"
+                                aria-controls="users" aria-selected="false">Usuarios</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="usersP-tab" data-toggle="tab" href="#usersP" role="tab"
+                                aria-controls="usersP" aria-selected="false">Usuarios Pendentes</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="envMail-tab" data-toggle="tab" href="#envMail" role="tab"
+                                aria-controls="envMail" aria-selected="false">Enviar email</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="event-tab" data-toggle="tab" href="#event" role="tab"
+                                aria-controls="event" aria-selected="false">Registrar Evento</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="noticia-tab" data-toggle="tab" href="#noticia" role="tab"
+                                aria-controls="noticia" aria-selected="false">Registrar Noticia</a>
+                        </li>
 
-                    <li class="nav-item waves-effect waves-light ">
-                        <a class="nav-link" id="calendario-tab" data-toggle="tab" href="#calendario" role="tab"
-                            aria-controls="event" aria-selected="false">Calendario de corridas</a>
-                    </li>
-                </ul>
+                        <li class="nav-item waves-effect waves-light ">
+                            <a class="nav-link" id="calendario-tab" data-toggle="tab" href="#calendario" role="tab"
+                                aria-controls="event" aria-selected="false">Calendario de corridas</a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade active show" id="pilotos" role="tabpanel" aria-labelledby="pilotos-tab">
                         <br><br><br><br>
@@ -295,6 +305,98 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="usersP" role="tabpanel" aria-labelledby="usersP-tab">
+                        <div class="container">
+                            <div class="row">
+                                <table class="table w-100  table-dark border-radius table-responsive-lg">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th scope="col-md-2">Nome</th>
+                                            <th scope="col-md-2">Sobrenome</th>
+                                            <th scope="col-md-2">Nacionalidade</th>
+                                            <th scope="col-md-1">Data de Nascimento</th>
+                                            <th scope="col-md-1">Prop Ferrari</th>
+                                            <th scope="col-md-2">Indicado Por 1°</th>
+                                            <th scope="col-md-2">Indicado Por 2°</th>
+                                            <th scope="col-md-4">Currículo</th>
+                                            <th scope="col-md-1">Acão</th>
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--  -->
+
+                                        <% usersP.forEach(usersP=>{ %>
+                                            <tr>
+                                                <td name ="<%= usersP.nome %>">
+                                                    <%= usersP.nome %>
+                                                </td>
+                                                <td>
+                                                    <%= usersP.sobrenome %>
+                                                </td>
+                                                <td>
+                                                    <%= usersP.nacionalidade %>
+                                                </td>
+                                                <td>
+                                                    <%= usersP.dataNascimento %>
+                                                </td>
+                                                <td>
+                                                    <%= usersP.portFerrari %>
+                                                </td>
+                                                <td>
+                                                    <%= usersP.socio1 %>
+                                                </td>
+                                                <td>
+                                                    <%= usersP.socio2 %>
+                                                </td>
+                                                <td>
+                                                    <%= usersP.cv %>
+                                                </td>
+                                                <td>
+                                                    <form method="POST" action="/admin/aceitarUP">
+                                                        <input type="hidden" name="idUserP" value="<%= usersP.id %>">
+                                                        <button class="btn btn-success">Aceitar</button>
+                                                    </form>
+                                                    <p>
+
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="envMail" role="tabpanel" aria-labelledby="envMail-tab">
+                        <div class="container">
+                            <form action="/admin/envMail" method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input name="assuntoMail" type="text" class="form-control"
+                                            placeholder="Assunto do email / Comunicado" />
+                                            <input type="file" name="resultadoPDF" class="form-control my-3" id="inputGroupFile02">
+
+                                        <textarea placeholder="Corpo do Email" name="corpoMail"
+                                            class="form-control mt-3" id="exampleFormControlTextarea1"
+                                            ></textarea>
+
+                                            <input type="submit" value="Enviar Evento"
+                                        class="btn btn-primary btn-block btnLogin my-5 btn-md">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
 

@@ -15,6 +15,7 @@ require('dotenv').config()
 
 
 //models
+const UsuarioP = require('./database/usuariosP')
 const News = require("./database/news")
 const Event = require("./database/envento")
 const Pilotos = require("./database/pilotos")
@@ -42,6 +43,7 @@ connection
     .catch((msgErro) => {
         console.log(msgErro)
     })
+app.use('/favicon.ico', express.static("public/img/favicon.ico"))
 
 app.use('/login', loginRouter)
 app.set('view engine', 'ejs')
@@ -61,7 +63,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get("/", (req, res) => {
-    // res.redirect("https://escferrarisp-com-br.umbler.net" + req.url);
+    process.env.TEST_LOGIN
 
     // var etapa = 1
 
@@ -114,20 +116,22 @@ app.get("/", (req, res) => {
 const user = process.env.SEND_EMAIL
 const pass = process.env.SEND_PASS
 
-const transporter = nodemailer.createTransport({
-    host: "SMTP.office365.com",
-    port: "587",
-    auth: { user: user, pass: pass }
-})
+
 
 app.post('/env', (req, res) => {
+    const transporter = nodemailer.createTransport({
+        host: "SMTP.office365.com",
+        port: "587",
+        auth: { user: user, pass: pass }
+    })
     var email = req.body.txtEmail
     var assunto = req.body.txtAssunto
     var textEmail = req.body.txtMsg
+    var toto = ['murilosbagodi@hotmail.com ', 'bagodi@globo.com']
 
     transporter.sendMail({
         from: email,
-        to: process.env.SEND_EMAIL,
+        to: toto,
         replyTo: process.env.SEND_REPLY,
         subject: assunto,
         text: textEmail
@@ -341,6 +345,78 @@ app.post('/admin/updatecalendar', adminAuth, (req, res) => {
 
 })
 
+app.post("/admin/aceitarUP", (req, res) => {
+    var id = req.body.idUserP
+    UsuarioP.findAll({where:{id:id}}).then(add=>{
+        
+        add.forEach(add => {
+            var email = add.email
+            var senha = add.senha
+            var nome = add.nome
+            var sobrenome = add.sobrenome
+            var celular = add.celular
+            var genero = add.genero
+            var cpf = add.cpf
+            var rg = add.rg
+            var dataNascimento = add.dataNascimento
+            var nacionalidade = add.nacionalidade
+            var camiseta = add.camiseta
+            var socio1 = add.socio1
+            var socio2 = add.socio2
+            var portFerrari = add.portFerrari
+            var cv = add.cv
+            var endereco = add.endereco
+            var bairro = add.bairro
+            var complemento = add.complemento
+            var numero = add.numero
+            var cep = add.cep
+
+            Usuario.create({
+                email: email,
+                senha: senha,
+                nome: nome,
+                sobrenome: sobrenome,
+                genero: genero,
+                camiseta: camiseta,
+                nacionalidade: nacionalidade,
+                dataNascimento: dataNascimento,
+                rg: rg,
+                cpf: cpf,
+                endereco: endereco,
+                bairro: bairro,
+                numero: numero,
+                complemento: complemento,
+                cep: cep,
+                celular: celular,
+                portFerrari: portFerrari,
+                socio1: socio1,
+                socio2: socio2,
+                cv: cv
+
+            }).then(() => {
+                if (!isNaN(id)) {
+                    UsuarioP.destroy({
+                        where: {
+                            id: id
+                        }
+                    }).then(() => {
+                        msg == true
+                        res.redirect("/admin")
+                    })
+                }
+                res.redirect("/admin");
+            }).catch(() => {
+                console.log(erro)
+            })
+        });
+    }).catch(()=>{
+        res.send(erro)
+    })
+
+
+
+});
+
 
 app.post("/admin/addPiloto", adminAuth, (req, res) => {
     var ano = req.body.anoPiloto
@@ -367,6 +443,83 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
 
 
 
+// async function getEmails() {
+//     const emails = await Usuario.findAll({
+//         attributes: ['email'],
+//         group: ['email'],
+//         raw: true,
+//         order: Sequelize.literal('email DESC')
+//     })
+//     console.log(emails)
+//     emails.forEach(element => {
+
+//     });
+
+
+
+// }
+
+// "'"+toto+"'"+','
+
+
+const transporter1 = nodemailer.createTransport({
+    host: "SMTP.office365.com",
+    port: "587",
+    auth: { user: user, pass: pass }
+})
+
+
+app.post("/admin/envMail", adminAuth, (req, res) => {
+    Usuario.findAll().then(mails => {
+        var assunto = req.body.assuntoMail
+        var corpo = req.body.corpoMail
+        var resultado = req.body.resultadoPDF
+
+        async function getEmails() {
+            const emails = await Usuario.findAll({
+                attributes: ['email'],
+                group: ['email'],
+                raw: true,
+                order: Sequelize.literal('email DESC')
+            })
+            console.log(emails)
+            var toto = []
+            emails.forEach(element => {
+                toto = element.email
+                console.log(toto + ',')
+
+                transporter1.sendMail({
+                    from: 'murilosbagodi@hotmail.com',
+                    to: 'murilos_bagodi@hotmail.com',
+                    replyTo: 'marioantonio@enas.org.br',
+                    subject: assunto,
+                    text: corpo,
+                    html: "<h1>Escuderia Ferrari San Paolo</h1>",
+                    attachments: [{
+                        filename: 'Resultados.pdf',
+                        path: resultado
+                    }]
+                }).then(() => {
+                    res.send('Email enviado com sucesso')
+                }).catch(() => {
+                    res.send('Aconteceu algum erro, tente novamente mais tarde')
+                })
+            });
+        }
+
+        getEmails()
+
+
+
+
+    })
+
+})
+
+
+
+
+
 
 
 app.get("/admin", adminAuth, (req, res) => {
@@ -376,34 +529,37 @@ app.get("/admin", adminAuth, (req, res) => {
             Calendario.findAll().then(calendar => {
                 Event.findAll().then(evento => {
                     News.findAll().then(news => {
-                        async function siduhfuis9() {
-                            const solta = await Palpite.findAll({
-                                attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
-                                group: ['idUsuario'],
-                                raw: true,
-                                order: Sequelize.literal('total desc')
-                            })
-                            console.log(solta)
-                            solta.forEach(solta => {
-                                solta.idUsuario
-                                console.log("id: ", solta.idUsuario, "total de pontos: ", solta.total)
-                                Usuario.update({ pontos: solta.total }, {
+                        UsuarioP.findAll().then(usersP => {
 
-                                    where: {
-                                        id: solta.idUsuario
 
-                                    }
+                            async function siduhfuis9() {
+                                const solta = await Palpite.findAll({
+                                    attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
+                                    group: ['idUsuario'],
+                                    raw: true,
+                                    order: Sequelize.literal('total desc')
                                 })
-                            });
+                                console.log(solta)
+                                solta.forEach(solta => {
+                                    solta.idUsuario
+                                    console.log("id: ", solta.idUsuario, "total de pontos: ", solta.total)
+                                    Usuario.update({ pontos: solta.total }, {
 
-                            res.render("admin/admin", {
-                                pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar,
-                                evento: evento, news: news, cont: 1
-                            });
-                        }
+                                        where: {
+                                            id: solta.idUsuario
 
-                        console.log(siduhfuis9())
+                                        }
+                                    })
+                                });
 
+                                res.render("admin/admin", {
+                                    pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar,
+                                    evento: evento, news: news, cont: 1, usersP: usersP
+                                });
+                            }
+
+                            console.log(siduhfuis9())
+                        })
                     })
 
                 })
@@ -553,46 +709,46 @@ app.post("/cadastrarUsuario", (req, res) => {
     var senha = bcrypt.hashSync(req.body.senha);
     var nome = req.body.nome;
     var sobrenome = req.body.sobrenome;
-    // var gender = req.body.gender;
-    // var tamanho = req.body.tamanho;
-    // var nacionalidade = req.body.nacionalidade;
-    // var nascimentoDate = req.body.nascimentoDate;
-    // var rg = req.body.rg;
-    // var cpf = req.body.cpf;
-    // var endereco = req.body.endereco;
-    // var bairro = req.body.bairro;
-    // var numero = req.body.numero;
-    // var complemento = req.body.complemento;
-    // var cep = req.body.cep;
-    // var telefone = req.body.telefone;
-    // var prop = req.body.prop;
-    // var socio1 = req.body.socio1;
-    // var socio2 = req.body.socio2;
-    // var cv = req.body.cv
+    var gender = req.body.gender;
+    var tamanho = req.body.tamanho;
+    var nacionalidade = req.body.nacionalidade;
+    var nascimentoDate = req.body.nascimentoDate;
+    var rg = req.body.rg;
+    var cpf = req.body.cpf;
+    var endereco = req.body.endereco;
+    var bairro = req.body.bairro;
+    var numero = req.body.numero;
+    var complemento = req.body.complemento;
+    var cep = req.body.cep;
+    var telefone = req.body.telefone;
+    var prop = req.body.prop;
+    var socio1 = req.body.socio1;
+    var socio2 = req.body.socio2;
+    var cv = req.body.cv
 
-    Usuario.findOne({ where: { email: email } }).then(user => {
+    UsuarioP.findOne({ where: { email: email } }).then(user => {
         if (user == undefined) {
-            Usuario.create({
+            UsuarioP.create({
                 email: email,
                 senha: senha,
                 nome: nome,
                 sobrenome: sobrenome,
-                // genero: gender,
-                // camiseta: tamanho,
-                // nacionalidade: nacionalidade,
-                // dataNascimento: nascimentoDate,
-                // rg: rg,
-                // cpf: cpf,
-                // endereco: endereco,
-                // bairro: bairro,
-                // numero: numero,
-                // complemento: complemento,
-                // cep: cep,
-                // celular: telefone,
-                // portFerrari: prop,
-                // socio1: socio1,
-                // socio2: socio2,
-                // cv: cv
+                genero: gender,
+                camiseta: tamanho,
+                nacionalidade: nacionalidade,
+                dataNascimento: nascimentoDate,
+                rg: rg,
+                cpf: cpf,
+                endereco: endereco,
+                bairro: bairro,
+                numero: numero,
+                complemento: complemento,
+                cep: cep,
+                celular: telefone,
+                portFerrari: prop,
+                socio1: socio1,
+                socio2: socio2,
+                cv: cv
 
             }).then(() => {
                 msg = true

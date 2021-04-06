@@ -30,6 +30,13 @@ li{
     font-weight: bold;
 } */
 
+@media screen and (max-width: 500px) {
+  .navbarBKG{
+    background-color:red;
+  }
+}
+
+
 body, html {
   height: 100%;
   margin: 0;
@@ -81,7 +88,7 @@ color: #F8E518!important;
 }
 
 .banner{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-Fronte.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-1465-CL-CS1.jpg");
   height: 45vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -91,7 +98,7 @@ color: #F8E518!important;
 
 @media only screen and (max-width: 600px) {
   .banner{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-1465-CL-CS1.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-Fronte.jpg");
     height: 120vw;
     background-position: center;
     background-repeat: no-repeat;
