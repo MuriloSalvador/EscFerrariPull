@@ -127,7 +127,11 @@ app.post('/env', (req, res) => {
     var email = req.body.txtEmail
     var assunto = req.body.txtAssunto
     var textEmail = req.body.txtMsg
+<<<<<<< HEAD
     var toto = ['murilosbagodi@hotmail.com ', 'bagodi@globo.com']
+=======
+    var toto = ['murilosbagodi@hotmail.com ','bagodi@globo.com']
+>>>>>>> d0f4e3df305f90b6e53e337dd234be794c9b4c26
 
     transporter.sendMail({
         from: email,
@@ -440,6 +444,73 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
 })
 
 
+const transporter1 = nodemailer.createTransport({
+    host: "SMTP.office365.com",
+    port: "587",
+    auth: { user: user, pass: pass }
+})
+
+
+// async function getEmails() {
+//     const emails = await Usuario.findAll({
+//         attributes: ['email'],
+//         group: ['email'],
+//         raw: true,
+//         order: Sequelize.literal('email DESC')
+//     })
+//     console.log(emails)
+//     emails.forEach(element => {
+        
+//     });
+
+
+
+// }
+
+
+app.post("/admin/envAll", adminAuth, (req, res) => {
+    Usuario.findAll({ where: { email } }).then(mails => {
+        var assunto = req.body.assuntoMail
+        var corpo = req.body.corpoMail
+        var resultado = req.body.resultadoPDF
+
+        async function getEmails() {
+            const emails = await Usuario.findAll({
+                attributes: ['email'],
+                group: ['email'],
+                raw: true,
+                order: Sequelize.literal('email DESC')
+            })
+            console.log(emails)
+            var toto = []
+            emails.forEach(element => {
+                toto = element.email
+                console.log(toto+',')
+                
+                transporter1.sendMail({
+                    from: email,
+                    to: "'"+toto+"'"+',',
+                    replyTo: 'marioantonio@enas.org.br',
+                    subject: assunto,
+                    text: corpo
+                }).then(() => {
+                    res.send('Email enviado com sucesso')
+                }).catch(() => {
+                    res.send('Aconteceu algum erro, tente novamente mais tarde')
+                })
+            });
+        }
+
+        getEmails()
+
+
+
+        
+    })
+
+})
+
+
 
 
 
@@ -606,14 +677,11 @@ app.get("/users", adminAuth, (req, res) => {
 app.get("/concurso", adminAuth, (req, res) => {
     Pilotos.findAll().then(pilots => {
         Calendario.findAll().then(calendar => {
-            RPalpite.findAll().then(result => {
-                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '', result: result })
-            })
-
+                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: ''})
         })
-
+    }).catch((err)=>{
+        res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, Tente novamente mais tarde'})
     })
-
 })
 
 app.get("/session", (req, res) => {

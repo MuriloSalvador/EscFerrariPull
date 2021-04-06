@@ -46,10 +46,12 @@
                     document.querySelector("#p5p").innerHTML = p5
                 }
 
-                document.getElementsByClassName('optionEtapa')
-                if (result.etapa == calendar.etapa) {
+               
 
-                }
+                
+
+
+
 
                 
 
@@ -108,13 +110,13 @@
 
 
                         <div class="titulo w-100 m-0">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-8">
                                 <label>Selecione a Etapa que Vai Fazer Seu Palpite: </label>
-                                <select class="form-control" id="etapaP" name="etapaP">
+                                <select class="form-control" id="etapaP" name="etapaP" style='font-size:25px'>
                                     <% calendar.forEach(calendar=>{ %>
 
 
-                                        <option value="<%=calendar.id%>" class="optionEtapa">
+                                        <option value="<%=calendar.id%>" class="optionEtapa"style='font-size:25px'>
                                             GP <%=calendar.id%> - <%= calendar.local %>
                                         </option>
 

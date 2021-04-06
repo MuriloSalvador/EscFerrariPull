@@ -2,7 +2,7 @@ const Sequelize = require("sequelize")
 
 const connection = require("./database")
 
-const RPalpite = connection.define('rPlapite',{
+const RPalpite = connection.define('rplapite',{
     id_Usuario:{
         type: Sequelize.INTEGER,
         allowNull: false

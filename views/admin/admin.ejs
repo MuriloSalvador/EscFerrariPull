@@ -47,10 +47,13 @@
                                 aria-controls="users" aria-selected="false">Usuarios</a>
                         </li>
                         <li class="nav-item waves-effect waves-light ">
+<<<<<<< HEAD
                             <a class="nav-link" id="usersP-tab" data-toggle="tab" href="#usersP" role="tab"
                                 aria-controls="usersP" aria-selected="false">Usuarios Pendentes</a>
                         </li>
                         <li class="nav-item waves-effect waves-light ">
+=======
+>>>>>>> d0f4e3df305f90b6e53e337dd234be794c9b4c26
                             <a class="nav-link" id="envMail-tab" data-toggle="tab" href="#envMail" role="tab"
                                 aria-controls="envMail" aria-selected="false">Enviar email</a>
                         </li>
@@ -310,6 +313,7 @@
 
                     </div>
 
+<<<<<<< HEAD
                     <div class="tab-pane fade" id="usersP" role="tabpanel" aria-labelledby="usersP-tab">
                         <div class="container">
                             <div class="row">
@@ -379,10 +383,13 @@
 
                     </div>
 
+=======
+>>>>>>> d0f4e3df305f90b6e53e337dd234be794c9b4c26
                     <div class="tab-pane fade" id="envMail" role="tabpanel" aria-labelledby="envMail-tab">
                         <div class="container">
                             <form action="/admin/envMail" method="POST">
                                 <div class="row">
+<<<<<<< HEAD
                                     <div class="col-md-12">
                                         <input name="assuntoMail" type="text" class="form-control"
                                             placeholder="Assunto do email / Comunicado" />
@@ -395,6 +402,49 @@
                                             <input type="submit" value="Enviar Evento"
                                         class="btn btn-primary btn-block btnLogin my-5 btn-md">
                                     </div>
+=======
+                                    <div class="col-md-6">
+                                        <input name="assuntoMail" type="text" class="form-control"
+                                            placeholder="Assunto do email / Comunicado" />
+                                        <input name="assunto" type="text" class="form-control mt-3"
+                                            placeholder="Assunto" />
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input name="data" type="date" class="form-control mt-3"
+                                                    placeholder="Data" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input name="local" type="text" class="form-control mt-3"
+                                                    placeholder="Local" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input name="horarioInit" type="datetime" class="form-control mt-3"
+                                                    placeholder="Horario de Inicio" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input name="horarioEnd" type="datetime" class="form-control mt-3"
+                                                    placeholder="Horario de Termino" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <textarea placeholder="Descrição do Evento" name="descEvento"
+                                            class="form-control" id="exampleFormControlTextarea1"
+                                            style='height: 100%'></textarea>
+
+
+                                    </div>
+
+                                    <input type="submit" value="Enviar Evento"
+                                        class="btn btn-primary btn-block btnLogin my-5 btn-md">
+
+
+>>>>>>> d0f4e3df305f90b6e53e337dd234be794c9b4c26
                                 </div>
                             </form>
                         </div>
