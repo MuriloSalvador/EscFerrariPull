@@ -127,11 +127,11 @@ app.post('/env', (req, res) => {
     var email = req.body.txtEmail
     var assunto = req.body.txtAssunto
     var textEmail = req.body.txtMsg
-<<<<<<< HEAD
+
     var toto = ['murilosbagodi@hotmail.com ', 'bagodi@globo.com']
-=======
+
     var toto = ['murilosbagodi@hotmail.com ','bagodi@globo.com']
->>>>>>> d0f4e3df305f90b6e53e337dd234be794c9b4c26
+
 
     transporter.sendMail({
         from: email,
@@ -444,11 +444,7 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
 })
 
 
-const transporter1 = nodemailer.createTransport({
-    host: "SMTP.office365.com",
-    port: "587",
-    auth: { user: user, pass: pass }
-})
+
 
 
 // async function getEmails() {
