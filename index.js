@@ -128,14 +128,10 @@ app.post('/env', (req, res) => {
     var assunto = req.body.txtAssunto
     var textEmail = req.body.txtMsg
 
-    var toto = ['murilosbagodi@hotmail.com ', 'bagodi@globo.com']
-
-    var toto = ['murilosbagodi@hotmail.com ','bagodi@globo.com']
-
 
     transporter.sendMail({
         from: email,
-        to: toto,
+        to: process.env.SEND_EMAIL,
         replyTo: process.env.SEND_REPLY,
         subject: assunto,
         text: textEmail
@@ -465,7 +461,7 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
 
 
 app.post("/admin/envAll", adminAuth, (req, res) => {
-    Usuario.findAll({ where: { email } }).then(mails => {
+    Usuario.findAll().then(mails => {
         var assunto = req.body.assuntoMail
         var corpo = req.body.corpoMail
         var resultado = req.body.resultadoPDF
@@ -484,7 +480,7 @@ app.post("/admin/envAll", adminAuth, (req, res) => {
                 console.log(toto+',')
                 
                 transporter1.sendMail({
-                    from: email,
+                    from: process.env.SEND_EMAIL,
                     to: "'"+toto+"'"+',',
                     replyTo: 'marioantonio@enas.org.br',
                     subject: assunto,
