@@ -1095,7 +1095,7 @@ app.get("/logout", (req, res) => {
 
 
 app.listen(process.env.PORT_, () => {
-    console.log("App rodando")
+    console.log("App rodando na porta: ",process.env.PORT_)
 })
 
 
