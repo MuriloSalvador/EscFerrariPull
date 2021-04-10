@@ -208,7 +208,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-app.post("/admin/addImage", upload.single("imgNews"), (req, res) => {
+app.post("/admin/addImage", upload.single("imgNewsDB"), (req, res) => {
     res.send("arquivo enviado, Continue o cadastro da Novidade")
 })
 
@@ -400,8 +400,8 @@ app.post("/admin/aceitarUP", (req, res) => {
                             id: id
                         }
                     }).then(() => {
-                        msg == true
-                        res.redirect("/admin")
+                        
+                        res.redirect("/")
                     })
                 }
                 res.redirect("/admin");
@@ -769,22 +769,22 @@ app.post("/cadastrarUsuario", (req, res) => {
     var senha = bcrypt.hashSync(req.body.senha);
     var nome = req.body.nome;
     var sobrenome = req.body.sobrenome;
-    var gender = req.body.gender;
-    var tamanho = req.body.tamanho;
-    var nacionalidade = req.body.nacionalidade;
-    var nascimentoDate = req.body.nascimentoDate;
-    var rg = req.body.rg;
-    var cpf = req.body.cpf;
-    var endereco = req.body.endereco;
-    var bairro = req.body.bairro;
-    var numero = req.body.numero;
-    var complemento = req.body.complemento;
-    var cep = req.body.cep;
-    var telefone = req.body.telefone;
-    var prop = req.body.prop;
-    var socio1 = req.body.socio1;
-    var socio2 = req.body.socio2;
-    var cv = req.body.cv
+    // var gender = req.body.gender;
+    // var tamanho = req.body.tamanho;
+    // var nacionalidade = req.body.nacionalidade;
+    // var nascimentoDate = req.body.nascimentoDate;
+    // var rg = req.body.rg;
+    // var cpf = req.body.cpf;
+    // var endereco = req.body.endereco;
+    // var bairro = req.body.bairro;
+    // var numero = req.body.numero;
+    // var complemento = req.body.complemento;
+    // var cep = req.body.cep;
+    // var telefone = req.body.telefone;
+    // var prop = req.body.prop;
+    // var socio1 = req.body.socio1;
+    // var socio2 = req.body.socio2;
+    // var cv = req.body.cv
 
     UsuarioP.findOne({ where: { email: email } }).then(user => {
         if (user == undefined) {
@@ -793,22 +793,22 @@ app.post("/cadastrarUsuario", (req, res) => {
                 senha: senha,
                 nome: nome,
                 sobrenome: sobrenome,
-                genero: gender,
-                camiseta: tamanho,
-                nacionalidade: nacionalidade,
-                dataNascimento: nascimentoDate,
-                rg: rg,
-                cpf: cpf,
-                endereco: endereco,
-                bairro: bairro,
-                numero: numero,
-                complemento: complemento,
-                cep: cep,
-                celular: telefone,
-                portFerrari: prop,
-                socio1: socio1,
-                socio2: socio2,
-                cv: cv
+                // genero: gender,
+                // camiseta: tamanho,
+                // nacionalidade: nacionalidade,
+                // dataNascimento: nascimentoDate,
+                // rg: rg,
+                // cpf: cpf,
+                // endereco: endereco,
+                // bairro: bairro,
+                // numero: numero,
+                // complemento: complemento,
+                // cep: cep,
+                // celular: telefone,
+                // portFerrari: prop,
+                // socio1: socio1,
+                // socio2: socio2,
+                // cv: cv
 
             }).then(() => {
                 msg = true
@@ -861,11 +861,14 @@ app.post("/auth", (req, res) => {
 
                 } else {
                     res.send("Erro Tente novamente mais tarde")
+                    
 
                 }
             } else {
                 res.redirect("/")
             }
+        }).catch(()=>{
+            res.send("Erro Tente novamente mais tarde", erro)
         })
     }
     return (log())
@@ -1084,6 +1087,8 @@ app.get("/calc", (req, res) => {
 // }
 
 // console.log(siduhfuis9())
+
+
 
 
 

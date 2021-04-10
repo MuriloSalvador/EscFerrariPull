@@ -32,6 +32,7 @@
 
                     var p1 = document.querySelector('input[name="p1"]:checked').id;
                     document.querySelector("#p1p").innerHTML = p1
+                    console.log(p1)
 
                     var p2 = document.querySelector('input[name="p2"]:checked').id;
                     document.querySelector("#p2p").innerHTML = p2
@@ -45,19 +46,6 @@
                     var p5 = document.querySelector('input[name="p5"]:checked').id;
                     document.querySelector("#p5p").innerHTML = p5
                 }
-
-               
-
-                
-
-
-
-
-                
-
-
-
-
             </script>
             <div class="card" style="width: 18rem;">
 
@@ -88,10 +76,10 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6 my-2">
-                            <button class="btn btn-success btn-lg" onclick="verify">Verificar</button>
+                            <button class="btn btn-success btn-md" onclick="verify()">Verificar</button>
                         </div>
                         <div class="col-md-6 my-2">
-                            <button class="btn btn-lg btn-danger" onClick="window.location.reload();">Deletar</button>
+                            <button class="btn btn-md btn-danger" onClick="window.location.reload();">Deletar</button>
                         </div>
                     </div>
 
@@ -159,7 +147,7 @@
                                         </th>
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                <input name="p4" class="form-check-input" type="radio"
+                                                <input  name="p4" class="form-check-input" type="radio"
                                                     id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
 
                                             </div>

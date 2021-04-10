@@ -10,16 +10,16 @@ const UsuarioP = connection.define('usuariopendente',{
     //info usuario init
     email:{
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: false
+        allowNull: true,
+        unique: true
     },
     senha:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     nome:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     pontos:{
         type: Sequelize.INTEGER,
@@ -27,11 +27,11 @@ const UsuarioP = connection.define('usuariopendente',{
     },
     sobrenome:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     celular:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     genero:{
         type: Sequelize.CHAR,
@@ -39,28 +39,28 @@ const UsuarioP = connection.define('usuariopendente',{
     },
     cpf:{
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: false
+        allowNull: true,
+        unique: true
     },
     rg:{
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: false
+        allowNull: true,
+        unique: true
     },
     dataNascimento:{
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
     },
     nacionalidade:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     //info usuario fim
 
     //plus init 
     camiseta:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     socio1:{
         type: Sequelize.STRING,
@@ -72,22 +72,22 @@ const UsuarioP = connection.define('usuariopendente',{
     },
     portFerrari:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     cv:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     //plus fim
 
     //edereco info init
     endereco:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     bairro:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     complemento:{
         type: Sequelize.STRING,
@@ -95,11 +95,11 @@ const UsuarioP = connection.define('usuariopendente',{
     },
     numero:{
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     cep:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     }
     //edereco info fim
 
@@ -108,8 +108,7 @@ const UsuarioP = connection.define('usuariopendente',{
 });
 
 
-
-//UsuarioP.sync({force: false});
+//UsuarioP.sync({force: true});
 
 
 
