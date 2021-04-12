@@ -35,7 +35,7 @@
                                             <img src="/img/logo.png" className='img-fluid perfilFT py-1' />
                                         </div>
                                     </div>
-                                    
+
 
                                     <form class="form pt-5" role="form" method="POST" action="/auth">
                                         <div class='perfil'>
@@ -91,9 +91,11 @@
                                                     </hr>
 
                                                     <%}%>
+                                                        
                                                         <small>
                                                             <h5 class="pt-5"><a href="/leaderboard"
-                                                                    class="text-white text-decoration-none font-weight-bold "> Placar Prognostico </a>
+                                                                    class="text-white text-decoration-none font-weight-bold ">
+                                                                    Placar Prognostico </a>
                                                             </h5>
                                                         </small>
                                                         <hr className='' style="background-color: white; width: 90px;">
@@ -105,6 +107,14 @@
                                                             </h5>
                                                         </small>
                                                         <hr className='' style="background-color: white; width: 90px;">
+                                                        </hr>
+                                                        <!-- <small>
+                                                            <h5><a href="/perfil"
+                                                                    class="text-white text-decoration-none font-weight-bold ">Meu Perfil
+                                                                    </a>
+                                                            </h5>
+                                                        </small>
+                                                        <hr className='' style="background-color: white; width: 90px;"> -->
                                                         </hr>
 
                                                         <small>
@@ -124,7 +134,7 @@
                                                             <div className='col-6'>
                                                                 <small>
                                                                     <p className='text-white font-weight-bold'
-                                                                        style="color: white; font-weight: bold;">Pontos:
+                                                                        style="color: yellow; font-weight: bold; font-size: 18px;">Pontos:
                                                                         <%=user.pontos%>
                                                                     </p>
                                                                 </small>

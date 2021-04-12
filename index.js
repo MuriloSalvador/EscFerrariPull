@@ -238,6 +238,8 @@ app.post("/admin/cadastraNoticia", adminAuth, (req, res) => {
 
 
 
+
+
 app.get("/admin/editPilots/:id", adminAuth, (req, res) => {
 
     var id = req.params.id
@@ -327,6 +329,10 @@ app.post("/admin/update", adminAuth, (req, res) => {
         res.redirect("/admin")
     })
 })
+
+app.post('/edit/perfil', adminAuth, (req, res) => {
+            
+})
 app.post('/admin/updatecalendar', adminAuth, (req, res) => {
     var etapa = req.body.etapa
     var data = req.body.data_string
@@ -347,8 +353,8 @@ app.post('/admin/updatecalendar', adminAuth, (req, res) => {
 
 app.post("/admin/aceitarUP", (req, res) => {
     var id = req.body.idUserP
-    UsuarioP.findAll({where:{id:id}}).then(add=>{
-        
+    UsuarioP.findAll({ where: { id: id } }).then(add => {
+
         add.forEach(add => {
             var email = add.email
             var senha = add.senha
@@ -400,7 +406,7 @@ app.post("/admin/aceitarUP", (req, res) => {
                             id: id
                         }
                     }).then(() => {
-                        
+
                         res.redirect("/")
                     })
                 }
@@ -409,7 +415,7 @@ app.post("/admin/aceitarUP", (req, res) => {
                 console.log(erro)
             })
         });
-    }).catch(()=>{
+    }).catch(() => {
         res.send(erro)
     })
 
@@ -452,7 +458,7 @@ app.post("/admin/addPiloto", adminAuth, (req, res) => {
 //     })
 //     console.log(emails)
 //     emails.forEach(element => {
-        
+
 //     });
 
 
@@ -477,11 +483,11 @@ app.post("/admin/envAll", adminAuth, (req, res) => {
             var toto = []
             emails.forEach(element => {
                 toto = element.email
-                console.log(toto+',')
-                
+                console.log(toto + ',')
+
                 transporter1.sendMail({
                     from: process.env.SEND_EMAIL,
-                    to: "'"+toto+"'"+',',
+                    to: "'" + toto + "'" + ',',
                     replyTo: 'marioantonio@enas.org.br',
                     subject: assunto,
                     text: corpo
@@ -497,7 +503,7 @@ app.post("/admin/envAll", adminAuth, (req, res) => {
 
 
 
-        
+
     })
 
 })
@@ -658,6 +664,16 @@ app.get("/leaderboard", adminAuth, (req, res) => {
 
 })
 
+app.get('/perfil', adminAuth, (req, res) => {
+    var userID = req.session.user.id
+    console.log(userID)
+    Usuario.findAll({ where: { id: userID } }).then(perfil => {
+        res.render('users/perfil', { perfil: perfil, log: 1, user: req.session.user })
+    })
+
+
+})
+
 app.get("/users", adminAuth, (req, res) => {
     Palpite.findAll({ where: { idUsuario: req.session.user.id } }).then(palpites => {
         res.render("users/index", { palpites: palpites, log: 1, user: req.session.user, cont: 1 });
@@ -669,10 +685,10 @@ app.get("/users", adminAuth, (req, res) => {
 app.get("/concurso", adminAuth, (req, res) => {
     Pilotos.findAll().then(pilots => {
         Calendario.findAll().then(calendar => {
-                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: ''})
+            res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '' })
         })
-    }).catch((err)=>{
-        res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, Tente novamente mais tarde'})
+    }).catch((err) => {
+        res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, Tente novamente mais tarde' })
     })
 })
 
@@ -853,7 +869,19 @@ app.post("/auth", (req, res) => {
                         email: user.email,
                         nome: user.nome,
                         sobrenome: user.sobrenome,
-                        pontos: user.pontos
+                        pontos: user.pontos,
+                        celular: user.celular,
+                        cpf: user.cpf,
+                        genero: user.genero,
+                        rg: user.rg,
+                        dataNascimento: user.dataNascimento,
+                        nacionalidade: user.nacionalidade,
+                        camiseta: user.camiseta,
+                        endereco: user.endereco,
+                        bairro: user.bairro,
+                        complemento: user.complemento,
+                        numero: user.numero,
+                        cep: user.cep
                     }
 
                     res.redirect("/concurso")
@@ -861,13 +889,13 @@ app.post("/auth", (req, res) => {
 
                 } else {
                     res.send("Erro Tente novamente mais tarde")
-                    
+
 
                 }
             } else {
                 res.redirect("/")
             }
-        }).catch(()=>{
+        }).catch(() => {
             res.send("Erro Tente novamente mais tarde", erro)
         })
     }
@@ -911,15 +939,14 @@ app.post("/cadastraresultado", adminAuth, (req, res) => {
 
     }).then(() => {
         msg = true
-        res.redirect("/concurso")
+        res.redirect("/admin")
 
     }).catch(() => {
-        erro = true
-        res.redirect("/concurso")
+        console.log(erro)
     })
 
     Palpite.findAll({ where: { etapa: etapaR } }).then(calc => {
-        res.render("calc/index", { calc: calc, log: 1 })
+
         var idUser = 0
         var p1 = 0
         var p2 = 0
@@ -1100,7 +1127,7 @@ app.get("/logout", (req, res) => {
 
 
 app.listen(process.env.PORT_, () => {
-    console.log("App rodando na porta: ",process.env.PORT_)
+    console.log("App rodando na porta: ", process.env.PORT_)
 })
 
 
