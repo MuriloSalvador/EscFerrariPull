@@ -860,6 +860,7 @@ app.post("/auth", (req, res) => {
                         email: email
                     }
                 })
+                res.redirect('/')
             }
             else if (user != undefined) {
                 var correct = bcrypt.compareSync(senha, user.senha)

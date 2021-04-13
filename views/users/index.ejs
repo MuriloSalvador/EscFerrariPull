@@ -14,6 +14,12 @@
 
 <body>
 
+    <script type="text/javascript">
+         function print(){
+             window.print();
+         }
+    </script>
+
     <div>
 
 
@@ -27,6 +33,7 @@
                 <table class="table table-hover table-dark table-responsive-lg">
                     <h3 class="text_placar text-center pb-4">Palpites de <%=user.nome%>
                             <%=user.sobrenome%></h3>
+                            <button id='bntPrint' class="btn btn-primary btnLogin my-4" onclick="print()">Salvar PDF</button>
                     <thead>
                         <tr>
 
