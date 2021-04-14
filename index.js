@@ -256,6 +256,27 @@ app.get("/admin/editPilots/:id", adminAuth, (req, res) => {
 })
 
 // tentar usar a rota do botão para passar infos
+app.post("/admin/deletarUsu", adminAuth, (req,res)=>{
+    var id = req.body.idUser
+
+    if(id !=undefined){
+        if(!isNaN(id)){
+            Usuario.destroy({
+                where:{
+                    id: id
+                }
+            }).then(()=>{
+                res.redirect("/admin")
+            }).catch(()=>{
+                res.redirect("/")
+            })
+        }else{
+            res.redirect("/")
+        }
+    }else{
+        res.redirect("/")
+    }
+})
 
 app.post("/admin/deletarPiloto", adminAuth, (req, res) => {
     var id = req.body.idPiloto
@@ -274,6 +295,8 @@ app.post("/admin/deletarPiloto", adminAuth, (req, res) => {
         } else {
             res.send("erro Id Invalido")
         }
+    }else{
+        res.redirect("/admin")
     }
 })
 
@@ -370,7 +393,7 @@ app.post('/admin/updatecalendar', adminAuth, (req, res) => {
 app.post("/admin/aceitarUP", (req, res) => {
     var id = req.body.idUserP
     UsuarioP.findAll({ where: { id: id } }).then(add => {
-
+        
         add.forEach(add => {
             var email = add.email
             var senha = add.senha
@@ -416,7 +439,7 @@ app.post("/admin/aceitarUP", (req, res) => {
                 cv: cv
 
             }).then(() => {
-                if (!isNaN(id)) {
+                if (!isNaN(id)||!undefined(id)) {
                     UsuarioP.destroy({
                         where: {
                             id: id
@@ -428,7 +451,7 @@ app.post("/admin/aceitarUP", (req, res) => {
                     res.send("Aconteceu algum erro tente novamente mais tarde ou entre em contato (11) 97379-7436")
                 }
             }).catch(() => {
-                res.send(erro)
+                res.send("Erro, Tente novamente mais tarde")
             })
         });
     }).catch(() => {
@@ -868,7 +891,7 @@ app.post("/auth", (req, res) => {
     var senha = req.body.senha
     async function log() {
         await Usuario.findOne({ where: { email: email } }).then(user => {
-            if (user.senha == null) {
+            if (user.senha == null || user.senha == undefined) {
                 var senhaBurra = bcrypt.hashSync(req.body.senha);
 
 
