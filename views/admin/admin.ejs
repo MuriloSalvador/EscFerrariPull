@@ -322,6 +322,7 @@
                                             
                                             <th scope="col-md-2">Nome</th>
                                             <th scope="col-md-2">Sobrenome</th>
+                                            <th scope="col-md-2">Email</th>
                                             <th scope="col-md-2">Nacionalidade</th>
                                             <th scope="col-md-1">Data de Nascimento</th>
                                             <th scope="col-md-1">Prop Ferrari</th>
@@ -346,6 +347,9 @@
                                                     <%= usersP.sobrenome %>
                                                 </td>
                                                 <td>
+                                                    <%= usersP.email %>
+                                                </td>
+                                                <td>
                                                     <%= usersP.nacionalidade %>
                                                 </td>
                                                 <td>
@@ -368,9 +372,11 @@
                                                         <input type="hidden" name="idUserP" value="<%= usersP.id %>">
                                                         <button class="btn btn-success">Aceitar</button>
                                                     </form>
-                                                    <p>
-
-                                                    </p>
+                                                    <form method="POST" action="/admin/recusarUP">
+                                                        <input type="hidden" name="idUserP" value="<%= usersP.id %>">
+                                                        <button class="btn btn-danger mt-2">Recusar</button>
+                                                    </form>
+                                                    
                                                 </td>
                                             </tr>
                                             <% }) %>

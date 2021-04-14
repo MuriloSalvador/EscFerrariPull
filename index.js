@@ -294,6 +294,21 @@ app.post('/admin/deletarNews', adminAuth, (req, res) => {
         }
     }
 })
+app.post("/admin/recusarUP", adminAuth, (req,res)=>{
+    var id = req.body.idUserP
+
+    if(id != undefined){
+        UsuarioP.destroy({
+            where:{
+                id:id
+            }
+        }).then(()=>{
+            res.redirect("/admin")
+        }).catch(()=>{
+            res.send("erro, Tente Novamente mais tarde ou entre em contato (11) 97379-7436")
+        })
+    }
+})
 
 app.post("/admin/deletarEvento", adminAuth, (req, res) => {
     var id = req.body.idEvento
@@ -351,6 +366,7 @@ app.post('/admin/updatecalendar', adminAuth, (req, res) => {
 
 })
 
+
 app.post("/admin/aceitarUP", (req, res) => {
     var id = req.body.idUserP
     UsuarioP.findAll({ where: { id: id } }).then(add => {
@@ -406,13 +422,13 @@ app.post("/admin/aceitarUP", (req, res) => {
                             id: id
                         }
                     }).then(() => {
-
-                        res.redirect("/")
+                        res.redirect("/admin")
                     })
+                }else{
+                    res.send("Aconteceu algum erro tente novamente mais tarde ou entre em contato (11) 97379-7436")
                 }
-                res.redirect("/admin");
             }).catch(() => {
-                console.log(erro)
+                res.send(erro)
             })
         });
     }).catch(() => {
@@ -802,7 +818,7 @@ app.post("/cadastrarUsuario", (req, res) => {
     // var socio2 = req.body.socio2;
     // var cv = req.body.cv
 
-    UsuarioP.findOne({ where: { email: email } }).then(user => {
+    Usuario.findOne({ where: { email: email } }).then(user => {
         if (user == undefined) {
             UsuarioP.create({
                 email: email,
@@ -832,13 +848,14 @@ app.post("/cadastrarUsuario", (req, res) => {
 
             }).catch(() => {
                 erro = true
-                res.redirect("/cadastro")
+                
                 res.render("cadastro", {
                     msg: "Cadastro não realizado, Tente novamente mais tarde", log: 0
                 })
             })
         } else {
-            res.redirect("/cadastro")
+            
+            res.render("cadastro", {msg: "!!! cadastro ja existente Tente fazer login com suas credenciais !!!", log: 0})
         }
     })
 
