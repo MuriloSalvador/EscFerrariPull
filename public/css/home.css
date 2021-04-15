@@ -86,6 +86,9 @@ color: #F8E518!important;
 .hamburguerz{
   background: linear-gradient(180deg, rgba(24,24,24,0.9150035014005602) 100%, rgba(255,37,19,0.6909138655462185) 100%);
 }
+.img-banner{
+  height: 460px !important;
+}
 
 .banner{
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-1465-CL-CS1.jpg");

@@ -47,42 +47,52 @@
                     document.querySelector("#p5p").innerHTML = p5
                 }
             </script>
-            <div class="card" style="width: 18rem;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card" style="width: 18rem;">
 
-                <div class="card-body">
-                    <div class="text-center">
-                        <h3>Seu Palpite</h3>
-                    </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h3>Seu Palpite</h3>
+                            </div>
 
-                    <hr>
-                    <h5>Pole Position:<div id="p4p" style="color:crimson"></div>
-                    </h5>
-                    <br>
-                    <h5>1°:<div id="p1p" style="color:crimson"></div>
-                    </h5>
-                    <br>
-                    <h5>2°:<div id="p2p" style="color:crimson"></div>
-                    </h5>
-                    <br>
-                    <h5>3°:<div id="p3p" style="color:crimson"></div>
-                    </h5>
-                    <br>
-                    <h5>Volta mais Rapida:<div id="p5p" style="color:crimson"></div>
-                    </h5>
-                    <h3>
-                        <%=msg%>
-                    </h3>
+                            <hr>
+                            <h5>Pole Position:<div id="p4p" style="color:crimson"></div>
+                            </h5>
+                            <br>
+                            <h5>1°:<div id="p1p" style="color:crimson"></div>
+                            </h5>
+                            <br>
+                            <h5>2°:<div id="p2p" style="color:crimson"></div>
+                            </h5>
+                            <br>
+                            <h5>3°:<div id="p3p" style="color:crimson"></div>
+                            </h5>
+                            <br>
+                            <h5>Volta mais Rapida:<div id="p5p" style="color:crimson"></div>
+                            </h5>
+                            <h3>
+                                <%=msg%>
+                            </h3>
 
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6 my-2">
-                            <button class="btn btn-success btn-md" onclick="verify()">Verificar</button>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 my-2">
+                                    <button class="btn btn-success btn-md" onclick="verify()">Verificar</button>
+                                </div>
+                                <div class="col-md-6 my-2">
+                                    <button class="btn btn-md btn-danger"
+                                        onClick="window.location.reload();">Deletar</button>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-md-6 my-2">
-                            <button class="btn btn-md btn-danger" onClick="window.location.reload();">Deletar</button>
-                        </div>
                     </div>
-
+                </div>
+                <div class="col-md-6">
+                    <div class="">
+                        <img src="/img/08c61f4f-b4e5-484f-b3d8-8c91ac83d946.jfif" class="img-fluid img-banner" alt="">
+                    </div>
                 </div>
             </div>
 
@@ -100,20 +110,23 @@
                         <div class="titulo w-100 m-0">
                             <div class="form-group col-md-8">
                                 <label>Selecione a Etapa que Vai Fazer Seu Palpite: </label>
-                                <select class="form-control bg-warning" id="etapaP" name="etapaP" style='font-size:25px'>
+                                <select class="form-control bg-warning" id="etapaP" name="etapaP"
+                                    style='font-size:25px'>
                                     <% calendar.forEach(calendar=>{ %>
 
-                                        <%if(calendar.id == 2){%>
-                                            <option value="<%=calendar.id%>" class="optionEtapa"style='font-size:25px'>
+                                        <%if(calendar.id==2){%>
+                                            <option value="<%=calendar.id%>" class="optionEtapa" style='font-size:25px'>
                                                 GP <%=calendar.id%> - <%= calendar.local %>
                                             </option>
                                             <%}%>
 
-                                        
 
-                                        <%})%>
+
+                                                <%})%>
                                 </select>
-                                <p><%=msg%></p>
+                                <p>
+                                    <%=msg%>
+                                </p>
                             </div>
 
                         </div>
@@ -151,28 +164,28 @@
                                         </th>
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                <input  name="p4" class="form-check-input" type="radio"
+                                                <input name="p4" class="form-check-input" type="radio"
                                                     id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
 
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                <input name="p1" class="form-check-input" onClick="not_repeat" type="radio"
-                                                    id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
+                                                <input name="p1" class="form-check-input" onClick="not_repeat"
+                                                    type="radio" id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                <input name="p2" class="form-check-input" onClick="not_repeat"  type="radio"
-                                                    id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
+                                                <input name="p2" class="form-check-input" onClick="not_repeat"
+                                                    type="radio" id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
                                             </div>
                                         </td>
 
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                <input name="p3" class="form-check-input" onClick="not_repeat"  type="radio"
-                                                    id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
+                                                <input name="p3" class="form-check-input" onClick="not_repeat"
+                                                    type="radio" id="<%= pilot.piloto %>" value="<%= pilot.numero %>" />
                                             </div>
                                         </td>
 
