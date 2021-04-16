@@ -110,7 +110,7 @@
                         <div class="titulo w-100 m-0">
                             <div class="form-group col-md-8">
                                 <label>Selecione a Etapa que Vai Fazer Seu Palpite: </label>
-                                <select disabled class="form-control bg-warning" id="etapaP" name="etapaP"
+                                <select class="form-control bg-warning" id="etapaP" name="etapaP"
                                     style='font-size:25px'>
                                     <% calendar.forEach(calendar=>{ %>
 
@@ -124,15 +124,14 @@
 
                                                 <%})%>
                                 </select>
-                                <h3 class="my-4" style="color: red;">Palpite encerrado para Imola 2021</h3>
                                 <p>
                                     <%=msg%>
                                 </p>
                             </div>
-                            
+
                         </div>
 
-                        <button disabled class="btn btn-lg btnLogin my-3 text-white w-100">
+                        <button class="btn btn-lg btnLogin my-3 text-white w-100">
                             Enviar Palpite
                         </button>
 
@@ -201,7 +200,7 @@
                             </tbody>
                         </table>
                         <div class="enviar mb-5">
-                            <button disabled class="btn btn-primary btn-block btnLogin">
+                            <button class="btn btn-primary btn-block btnLogin">
                                 Enviar Palpite
                             </button>
                         </div>
