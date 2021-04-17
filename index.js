@@ -581,7 +581,7 @@ app.post("/admin/envMail", adminAuth, (req, res) => {
     Usuario.findAll().then(mails => {
         var assunto = req.body.assuntoMail
         var corpo = req.body.corpoMail
-        var resultado = req.body.resultadoPDF
+        // var resultado = req.body.resultadoPDF
 
         async function getEmails() {
             const emails = await Usuario.findAll({
@@ -601,12 +601,12 @@ app.post("/admin/envMail", adminAuth, (req, res) => {
                     to: 'murilos_bagodi@hotmail.com',
                     replyTo: 'marioantonio@enas.org.br',
                     subject: assunto,
-                    text: corpo,
-                    html: "<h1>Escuderia Ferrari San Paolo</h1>",
-                    attachments: [{
-                        filename: 'Resultados.pdf',
-                        path: resultado
-                    }]
+                    text: corpo
+                    // html: "<h1>Escuderia Ferrari San Paolo</h1>"
+                    // attachments: [{
+                    //     filename: 'Resultados.pdf',
+                    //     path: resultado
+                    // }]
                 }).then(() => {
                     res.send('Email enviado com sucesso')
                 }).catch(() => {
@@ -681,7 +681,7 @@ app.get("/admin", adminAuth, (req, res) => {
 
 })
 
-app.get("/leaderboard", adminAuth, (req, res) => {
+app.get("/leaderboard", (req, res) => {
     Usuario.findAll().then(usr => {
         async function orderPoits() {
             const usLead = await Usuario.findAll({
@@ -690,7 +690,7 @@ app.get("/leaderboard", adminAuth, (req, res) => {
                 order: [['pontos', 'DESC']]
             })
             console.log(usLead)
-            res.render("leaderboard", { usr: usr, log: 1, user: req.session.user, cont: 1, leader: usLead })
+            res.render("leaderboard", { usr: usr, log: 0, user: req.session.user, cont: 1, leader: usLead })
         }
 
 
