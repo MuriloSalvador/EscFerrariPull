@@ -14,6 +14,7 @@ require('dotenv').config()
 
 
 
+
 //models
 const UsuarioP = require('./database/usuariosP')
 const News = require("./database/news")
@@ -256,24 +257,24 @@ app.get("/admin/editPilots/:id", adminAuth, (req, res) => {
 })
 
 // tentar usar a rota do botão para passar infos
-app.post("/admin/deletarUsu", adminAuth, (req,res)=>{
+app.post("/admin/deletarUsu", adminAuth, (req, res) => {
     var id = req.body.idUser
 
-    if(id !=undefined){
-        if(!isNaN(id)){
+    if (id != undefined) {
+        if (!isNaN(id)) {
             Usuario.destroy({
-                where:{
+                where: {
                     id: id
                 }
-            }).then(()=>{
+            }).then(() => {
                 res.redirect("/admin")
-            }).catch(()=>{
+            }).catch(() => {
                 res.redirect("/")
             })
-        }else{
+        } else {
             res.redirect("/")
         }
-    }else{
+    } else {
         res.redirect("/")
     }
 })
@@ -295,7 +296,7 @@ app.post("/admin/deletarPiloto", adminAuth, (req, res) => {
         } else {
             res.send("erro Id Invalido")
         }
-    }else{
+    } else {
         res.redirect("/admin")
     }
 })
@@ -317,17 +318,17 @@ app.post('/admin/deletarNews', adminAuth, (req, res) => {
         }
     }
 })
-app.post("/admin/recusarUP", adminAuth, (req,res)=>{
+app.post("/admin/recusarUP", adminAuth, (req, res) => {
     var id = req.body.idUserP
 
-    if(id != undefined){
+    if (id != undefined) {
         UsuarioP.destroy({
-            where:{
-                id:id
+            where: {
+                id: id
             }
-        }).then(()=>{
+        }).then(() => {
             res.redirect("/admin")
-        }).catch(()=>{
+        }).catch(() => {
             res.send("erro, Tente Novamente mais tarde ou entre em contato (11) 97379-7436")
         })
     }
@@ -369,7 +370,7 @@ app.post("/admin/update", adminAuth, (req, res) => {
 })
 
 app.post('/edit/perfil', adminAuth, (req, res) => {
-            
+
 })
 app.post('/admin/updatecalendar', adminAuth, (req, res) => {
     var etapa = req.body.etapa
@@ -393,7 +394,7 @@ app.post('/admin/updatecalendar', adminAuth, (req, res) => {
 app.post("/admin/aceitarUP", (req, res) => {
     var id = req.body.idUserP
     UsuarioP.findAll({ where: { id: id } }).then(add => {
-        
+
         add.forEach(add => {
             var email = add.email
             var senha = add.senha
@@ -439,7 +440,7 @@ app.post("/admin/aceitarUP", (req, res) => {
                 cv: cv
 
             }).then(() => {
-                if (!isNaN(id)||!undefined(id)) {
+                if (!isNaN(id) || !undefined(id)) {
                     UsuarioP.destroy({
                         where: {
                             id: id
@@ -447,7 +448,7 @@ app.post("/admin/aceitarUP", (req, res) => {
                     }).then(() => {
                         res.redirect("/admin")
                     })
-                }else{
+                } else {
                     res.send("Aconteceu algum erro tente novamente mais tarde ou entre em contato (11) 97379-7436")
                 }
             }).catch(() => {
@@ -724,7 +725,16 @@ app.get("/users", adminAuth, (req, res) => {
 app.get("/concurso", adminAuth, (req, res) => {
     Pilotos.findAll().then(pilots => {
         Calendario.findAll().then(calendar => {
-            res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '' })
+            rCorrida.findAll().then(etapaSeg => {
+                var nextEtapa
+                etapaSeg.forEach(next => {
+                    nextEtapa = next.etapa
+                });
+                nextEtapa = nextEtapa+1
+                console.log("etapa da corrida: ", nextEtapa)
+                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '', nextEtapa:nextEtapa })
+            })
+
         })
     }).catch((err) => {
         res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, Tente novamente mais tarde' })
@@ -754,7 +764,7 @@ app.get("/read", (req, res) => {
     })
 })
 
-var etapaP = 0
+
 app.post("/salvarPalpite", adminAuth, (req, res) => {
 
     var p1 = req.body.p1
@@ -764,14 +774,19 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
     var p5 = req.body.p5
 
     var idUsuario = req.session.user.id
-    etapaP = req.body.etapaP
+    var etapaP = req.body.etapaP
     var idCorrida = 1
     var total = 0
     var pontos = 0
 
 
-    Palpite.findOne({ where: { idUsuario: idUsuario } }).then(iduser => {
-        if (etapaP == 1) {
+    Palpite.findAll({ where: { idUsuario: idUsuario } }).then(iduser => {
+        var etapaTBL
+        iduser.forEach(iduser => {
+            etapaTBL = iduser.etapa
+        });
+
+        if (etapaP != etapaTBL) {
             Palpite.create({
                 idUsuario: idUsuario,
                 p1: p1,
@@ -786,31 +801,35 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
             }).then(() => {
                 res.redirect("/users");
             }).catch(() => {
-                console.log(erro)
-            })
-
-        }
-
-        else if (etapaP != iduser.etapa) {
-            Palpite.create({
-                idUsuario: idUsuario,
-                p1: p1,
-                p2: p2,
-                p3: p3,
-                p4: p4,
-                p5: p5,
-                etapa: etapaP,
-                idCorrida: idCorrida,
-                Pontos: pontos,
-                Total: total
-            }).then(() => {
-                res.redirect("/users");
-            }).catch(() => {
-                console.log(erro)
+                Pilotos.findAll().then(pilots => {
+                    Calendario.findAll().then(calendar => {
+                        rCorrida.findAll().then(etapaSeg => {
+                            var nextEtapa
+                            etapaSeg.forEach(next => {
+                                nextEtapa = next.etapa
+                            });
+                            nextEtapa = nextEtapa+1
+                            res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, tente Novamente mais tarde', nextEtapa:nextEtapa })
+                        })
+            
+                    })
+                })
             })
 
         } else {
-            res.redirect('/users')
+            Pilotos.findAll().then(pilots => {
+                Calendario.findAll().then(calendar => {
+                    rCorrida.findAll().then(etapaSeg => {
+                        var nextEtapa
+                        etapaSeg.forEach(next => {
+                            nextEtapa = next.etapa
+                        });
+                        nextEtapa = nextEtapa+1
+                        res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '!!! Palpite já cadastrado para está etapa !!!', nextEtapa:nextEtapa })
+                    })
+        
+                })
+            })
         }
     })
 });
@@ -871,14 +890,14 @@ app.post("/cadastrarUsuario", (req, res) => {
 
             }).catch(() => {
                 erro = true
-                
+
                 res.render("cadastro", {
                     msg: "Cadastro não realizado, Tente novamente mais tarde", log: 0
                 })
             })
         } else {
-            
-            res.render("cadastro", {msg: "!!! cadastro ja existente Tente fazer login com suas credenciais !!!", log: 0})
+
+            res.render("cadastro", { msg: "!!! cadastro ja existente Tente fazer login com suas credenciais !!!", log: 0 })
         }
     })
 

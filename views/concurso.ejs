@@ -10,6 +10,7 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    
     <title>Concurso</title>
 </head>
 
@@ -25,6 +26,9 @@
             <h2>Olá, <%=nome.nome%>
                     <%=nome.sobrenome%>
             </h2>
+            <h5 class="w-100 my-3 " style="color: red;">
+                <%=msg%>
+            </h5>
             <br>
             <script type="text/javascript">
 
@@ -71,9 +75,7 @@
                             <br>
                             <h5>Volta mais Rapida:<div id="p5p" style="color:crimson"></div>
                             </h5>
-                            <h3>
-                                <%=msg%>
-                            </h3>
+                            
 
                             <hr>
                             <div class="row">
@@ -109,14 +111,14 @@
 
                         <div class="titulo w-100 m-0">
                             <div class="form-group col-md-8">
-                                <label>Selecione a Etapa que Vai Fazer Seu Palpite: </label>
-                                <select disabled class="form-control bg-warning" id="etapaP" name="etapaP"
+                                <label>Etapa do Palpite: </label>
+                                <select class="form-control bg-warning" id="etapaP" name="etapaP"
                                     style='font-size:25px'>
                                     <% calendar.forEach(calendar=>{ %>
 
-                                        <%if(calendar.id==2){%>
-                                            <option value="<%=calendar.id%>" class="optionEtapa" style='font-size:25px'>
-                                                GP <%=calendar.id%> - <%= calendar.local %>
+                                        <%if(calendar.id==nextEtapa){%>
+                                            <option value="<%=nextEtapa%>" class="optionEtapa" style='font-size:25px'>
+                                                GP <%=nextEtapa%> - <%= calendar.local %>
                                             </option>
                                             <%}%>
 
@@ -124,15 +126,13 @@
 
                                                 <%})%>
                                 </select>
-                                <p>
-                                    <%=msg%>
-                                </p>
+                                
                             </div>
 
                         </div>
-
-                        <button disabled class="btn btn-lg btnLogin my-3 text-white w-100">
-                            Palpite para imola 2021 - Encerrado
+                        
+                        <button  class="btn btn-lg btnLogin my-3 text-white w-100">
+                            Enviar Palpite
                         </button>
 
                         <table class="table table-dark table-responsive-lg w-100">
@@ -200,8 +200,8 @@
                             </tbody>
                         </table>
                         <div class="enviar mb-5">
-                            <button disabled class="btn btn-primary btn-block btnLogin">
-                                Palpite para imola 2021 - Encerrado
+                            <button class="btn btn-primary btnLogin">
+                                Enviar Palpite
                             </button>
                         </div>
                     </form>

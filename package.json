@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"npx nodemon",
+    "dev": "npx nodemon",
     "start": "npm i && node index"
   },
   "author": "Gustavo Melo",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^4.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
