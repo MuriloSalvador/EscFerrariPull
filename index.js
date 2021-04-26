@@ -639,35 +639,38 @@ app.get("/admin", adminAuth, (req, res) => {
                 Event.findAll().then(evento => {
                     News.findAll().then(news => {
                         UsuarioP.findAll().then(usersP => {
+                            Palpite.findAll().then(palp => {
 
 
-                            async function siduhfuis9() {
-                                const solta = await Palpite.findAll({
-                                    attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
-                                    group: ['idUsuario'],
-                                    raw: true,
-                                    order: Sequelize.literal('total desc')
-                                })
-                                console.log(solta)
-                                solta.forEach(solta => {
-                                    solta.idUsuario
-                                    console.log("id: ", solta.idUsuario, "total de pontos: ", solta.total)
-                                    Usuario.update({ pontos: solta.total }, {
-
-                                        where: {
-                                            id: solta.idUsuario
-
-                                        }
+                                async function siduhfuis9() {
+                                    const solta = await Palpite.findAll({
+                                        attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
+                                        group: ['idUsuario'],
+                                        raw: true,
+                                        order: Sequelize.literal('total desc')
                                     })
-                                });
+                                    console.log(solta)
+                                    solta.forEach(solta => {
+                                        solta.idUsuario
+                                        console.log("id: ", solta.idUsuario, "total de pontos: ", solta.total)
+                                        Usuario.update({ pontos: solta.total }, {
 
-                                res.render("admin/admin", {
-                                    pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar,
-                                    evento: evento, news: news, cont: 1, usersP: usersP
-                                });
-                            }
+                                            where: {
+                                                id: solta.idUsuario
 
-                            console.log(siduhfuis9())
+                                            }
+                                        })
+                                    });
+                                    
+
+                                    res.render("admin/admin", {
+                                        pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar,
+                                        evento: evento, news: news, cont: 1, usersP: usersP, palp: palp
+                                    });
+                                }
+
+                                console.log(siduhfuis9())
+                            })
                         })
                     })
 
@@ -730,9 +733,9 @@ app.get("/concurso", adminAuth, (req, res) => {
                 etapaSeg.forEach(next => {
                     nextEtapa = next.etapa
                 });
-                nextEtapa = nextEtapa+1
+                nextEtapa = nextEtapa + 1
                 console.log("etapa da corrida: ", nextEtapa)
-                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '', nextEtapa:nextEtapa })
+                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '', nextEtapa: nextEtapa })
             })
 
         })
@@ -808,10 +811,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                             etapaSeg.forEach(next => {
                                 nextEtapa = next.etapa
                             });
-                            nextEtapa = nextEtapa+1
-                            res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, tente Novamente mais tarde', nextEtapa:nextEtapa })
+                            nextEtapa = nextEtapa + 1
+                            res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Erro, tente Novamente mais tarde', nextEtapa: nextEtapa })
                         })
-            
+
                     })
                 })
             })
@@ -824,10 +827,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                         etapaSeg.forEach(next => {
                             nextEtapa = next.etapa
                         });
-                        nextEtapa = nextEtapa+1
-                        res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '!!! Palpite já cadastrado para está etapa !!!', nextEtapa:nextEtapa })
+                        nextEtapa = nextEtapa + 1
+                        res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '!!! Palpite já cadastrado para está etapa !!!', nextEtapa: nextEtapa })
                     })
-        
+
                 })
             })
         }
