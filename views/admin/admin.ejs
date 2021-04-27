@@ -397,19 +397,17 @@
                     <div class="tab-pane fade" id="palpites" role="tabpanel" aria-labelledby="palpites-tab">
 
                         <div class="container">
-                            <input type="text" class="form-control my-3" id="myInput" onkeyup="myFunction()" placeholder="Procurar por Etapa" title="Procurar Etapa">
+                            
                             <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control mb-1" id="myInput" onkeyup="myFunction()" placeholder="Procurar por Etapa" title="Procurar Etapa">
                                 <table class="table w-100  table-dark border-radius table-responsive-lg">
                                     <thead>
                                         <tr><th scope="col-md-2">Etapa</th>
                                             <th scope="col-md-2">Nome</th>
                                             <th scope="col-md-2">Sobrenome</th>
                                             <th scope="col-md-2">ID</th>
-                                            <th scope="col-md-2">Pole</th>
-                                            <th scope="col-md-2">1°</th>
-                                            <th scope="col-md-2">2°</th>
-                                            <th scope="col-md-1">3°</th>
-                                            <th scope="col-md-1">V.R</th>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable">
@@ -433,26 +431,12 @@
                                                             <td>
                                                                 <%=palp.idUsuario%>
                                                             </td>
-
-                                                                <td>
-                                                                    <%= palp.p4 %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= palp.p1 %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= palp.p2 %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= palp.p3 %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= palp.p5 %>
-                                                                </td>
                                             </tr>
                                             <% }) %>
                                     </tbody>
                                 </table>
+                            </div>
+                        <div class="col-md-3"></div>
                             </div>
                         </div>
                         
