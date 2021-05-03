@@ -8,7 +8,11 @@
     "dev": "npx nodemon",
     "start": "npm i && node index"
   },
+<<<<<<< HEAD
   "author": "Gustavo Melo",
+=======
+  "author": "Murilo Bagodi",
+>>>>>>> a118269 (new desk)
   "license": "ISC",
   "dependencies": {
     "animate.css": "^4.1.1",
