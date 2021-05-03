@@ -959,13 +959,10 @@ app.post("/auth", (req, res) => {
                 res.redirect("/")
             }
         }).catch(() => {
-<<<<<<< HEAD
-            res.send("Erro Tente novamente mais tarde", erro)
-=======
+
             res.status(404).send(
-                "Erro"
+                "Erro Senha ou Email errado"
             )
->>>>>>> a118269 (new desk)
         })
     }
     return (log())
