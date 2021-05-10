@@ -344,3 +344,9 @@
     width: 400px;
     background-color: #0082fa;
 }
+
+.link_conc:hover{
+    color:#e20a25 !important;
+    text-decoration: unset;
+  }
+  

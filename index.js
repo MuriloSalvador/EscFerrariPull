@@ -661,7 +661,7 @@ app.get("/admin", adminAuth, (req, res) => {
                                             }
                                         })
                                     });
-                                    
+
 
                                     res.render("admin/admin", {
                                         pilots: pilots, msg: "", adm: req.session.user, log: 1, user: req.session.user, users: users, calendar: calendar,
@@ -735,7 +735,7 @@ app.get("/concurso", adminAuth, (req, res) => {
                 });
                 nextEtapa = nextEtapa + 1
                 console.log("etapa da corrida: ", nextEtapa)
-                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: '', nextEtapa: nextEtapa })
+                res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Pode Verificar seu palpite no link Abaixo', nextEtapa: nextEtapa })
             })
 
         })
@@ -802,7 +802,20 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                 Pontos: pontos,
                 Total: total
             }).then(() => {
-                res.redirect("/users");
+                Pilotos.findAll().then(pilots => {
+                    Calendario.findAll().then(calendar => {
+                        rCorrida.findAll().then(etapaSeg => {
+                            var nextEtapa
+                            etapaSeg.forEach(next => {
+                                nextEtapa = next.etapa
+                            });
+                            nextEtapa = nextEtapa + 1
+                            res.render("concurso", { pilots: pilots, nome: req.session.user, log: 1, user: req.session.user, calendar: calendar, msg: 'Palpite enviado com sucesso !!', nextEtapa: nextEtapa })
+
+                        })
+
+                    })
+                })
             }).catch(() => {
                 Pilotos.findAll().then(pilots => {
                     Calendario.findAll().then(calendar => {

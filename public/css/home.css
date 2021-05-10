@@ -30,6 +30,7 @@ li{
     font-weight: bold;
 } */
 
+
 @media screen and (max-width: 500px) {
   .navbarBKG{
     background-color:red;
