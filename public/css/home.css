@@ -153,7 +153,6 @@ color: #F8E518!important;
 .nav-tabs .nav-link:hover{
   transition: 0.5s !important;
   background-color: #ec2300;
-  letter-spacing: 8px;
   color: #fafafa !important;
 }
 
@@ -549,4 +548,175 @@ input[type="radio"] {
   transition: 0.5s;
   
   background: #181818;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #e20a25;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #e20a25;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+.inLive{
+    height: 100px;
+    width: 200px;
+    background-color: black;
+    margin-top: 100px;
+    position: absolute;
+    border-radius: 0px 15px 15px 0;
+    z-index: 9;
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/upload/banners/BannerConc.jfif');
+    background-repeat: no-repeat;
+    background-size: 200px 100px;
+    position: fixed
+}
+
+.inLive p{
+  color: #f1f1f1;
+  margin-bottom: 0;
+  font-family: 'Righteous', cursive;
+}
+
+.text_inLive{
+  display: flex;
+    justify-content: flex-end;
+    margin: 5px 5px 0 0;
+    background-color: #e20a25;
+    width: fit-content;
+    padding: 3px;
+    float: right;
+    border-radius: 10px;
+}
+
+.divBtn_inLive{
+  width: 100%;
+    display: flex;
+    margin-top: 60px;
+    justify-content: center;
+}
+
+.btn_assistir:hover{
+  background-color: #181818;
+    padding: 5px 15px;
+    color: #e20a25 !important;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Righteous', cursive;
+    transition: 0.25s;
+    border: 2px solid #e20a25
+}
+
+.btn_assistir{
+  background-color: #e20a25;
+    padding: 5px 15px;
+    color: #fff !important ;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Righteous', cursive;
+    transition: 0.25s;
+    border: 2px solid #181818
+}
+
+.btn_hide{
+  height: 100px;
+  width: 220px;
+  margin-top: 100px;
+  position: absolute;
+  border-radius: 10px;
+  position: fixed;
+  border: none;
+  background-color: #2a2a2a;
+  text-decoration: none;
+  outline: none !important;
+}
+
+.bar{
+  width: 2px;
+  height: 50px;
+  background-color: #3a3a3a;
+  /* text-align: center; */
+  margin-left: 26px;
+  border-radius: 1px;
+}
+
+.bar1{
+  width: 2px;
+  height: 50px;
+  background-color: #3a3a3a;
+  /* text-align: center; */
+  margin-left: 3px;
+  border-radius: 1px;
+}
+
+.divOrg{
+  height: 100px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#allContent{
+  transition: all 0.3s;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+#allContent.active{
+  margin-left: -200px;
 }
