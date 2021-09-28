@@ -90,7 +90,19 @@ app.get("/", (req, res) => {
 
   Calendario.findAll().then((corridas) => {
     Event.findAll().then((event) => {
-      News.findAll().then((news) => {
+      News.findAll({
+        attributes: [
+          'id_news',
+          'titulo',
+          'subtitulo',
+          'img',
+          'descricao',
+          'link'
+        ],
+        group: ['id_news'],
+        raw: true,
+        order: Sequelize.literal('id_news desc')
+      }).then((news) => {
         if (req.session.user != undefined) {
           res.render("index", {
             corridas: corridas,
