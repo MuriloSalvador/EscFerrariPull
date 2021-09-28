@@ -407,7 +407,7 @@ app.post("/admin/update", adminAuth, (req, res) => {
   });
 });
 
-app.post("/edit/perfil", adminAuth, (req, res) => {});
+app.post("/edit/perfil", adminAuth, (req, res) => { });
 app.post("/admin/updatecalendar", adminAuth, (req, res) => {
   var etapa = req.body.etapa;
   var data = req.body.data_string;
@@ -688,7 +688,19 @@ app.get("/admin", adminAuth, (req, res) => {
     Usuario.findAll().then((users) => {
       Calendario.findAll().then((calendar) => {
         Event.findAll().then((evento) => {
-          News.findAll().then((news) => {
+          News.findAll({
+            attributes: [
+              'id_news',
+              'titulo',
+              'subtitulo',
+              'img',
+              'descricao',
+              'link'
+            ],
+            group: ['id_news'],
+            raw: true,
+            order: Sequelize.literal('id_news desc')
+          }).then((news) => {
             UsuarioP.findAll().then((usersP) => {
               Palpite.findAll().then((palp) => {
                 RPalpite.findAll().then((palpR) => {
@@ -728,6 +740,7 @@ app.get("/admin", adminAuth, (req, res) => {
                         }
                       );
                     });
+
 
                     res.render("admin/admin", {
                       pilots: pilots,
@@ -1263,7 +1276,7 @@ app.post("/cadastraresultado", adminAuth, (req, res) => {
 });
 //ideia 1 - lista, array
 
-app.get("/calc", (req, res) => {});
+app.get("/calc", (req, res) => { });
 
 // async function siduhfuis9() { const solta = await Palpite.findAll({
 //     attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],
