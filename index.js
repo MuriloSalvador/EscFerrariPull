@@ -27,6 +27,7 @@ const RPalpite = require("./database/rPalpite");
 const Sequelize = require("sequelize");
 const { Console } = require("console");
 const { where } = require("sequelize");
+const { stat } = require("fs");
 
 var msg = false;
 var erro = false;
@@ -855,8 +856,7 @@ app.get("/concurso", adminAuth, (req, res) => {
                 btnStatus: status,
                 msgImg: "",
               });
-            }
-          );
+            });
         });
       });
     })
@@ -935,6 +935,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                   nextEtapa = next.etapa;
                 });
                 nextEtapa = nextEtapa + 1;
+                Calendario.findOne({ where: { etapa: nextEtapa } }).then(
+                  (statusBtnEnv) => {
+                    var status = statusBtnEnv.p1;
+                    console.log("Status: " + status);
                 res.render("concurso", {
                   pilots: pilots,
                   nome: req.session.user,
@@ -943,7 +947,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                   calendar: calendar,
                   msg: "Palpite enviado com sucesso !!",
                   nextEtapa: nextEtapa,
+                  btnStatus: status,
+                  msgImg: "",
                 });
+              })
               });
             });
           });
@@ -957,6 +964,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                   nextEtapa = next.etapa;
                 });
                 nextEtapa = nextEtapa + 1;
+                Calendario.findOne({ where: { etapa: nextEtapa } }).then(
+                  (statusBtnEnv) => {
+                    var status = statusBtnEnv.p1;
+                    console.log("Status: " + status);
                 res.render("concurso", {
                   pilots: pilots,
                   nome: req.session.user,
@@ -965,7 +976,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                   calendar: calendar,
                   msg: "Erro, tente Novamente mais tarde",
                   nextEtapa: nextEtapa,
+                  btnStatus: status,
+                  msgImg: "",
                 });
+              })
               });
             });
           });
@@ -979,6 +993,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
               nextEtapa = next.etapa;
             });
             nextEtapa = nextEtapa + 1;
+            Calendario.findOne({ where: { etapa: nextEtapa } }).then(
+              (statusBtnEnv) => {
+                var status = statusBtnEnv.p1;
+                console.log("Status: " + status);
             res.render("concurso", {
               pilots: pilots,
               nome: req.session.user,
@@ -987,7 +1005,10 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
               calendar: calendar,
               msg: "!!! Palpite já cadastrado para está etapa !!!",
               nextEtapa: nextEtapa,
+              btnStatus: status,
+              msgImg: "",
             });
+          });
           });
         });
       });
