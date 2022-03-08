@@ -28,6 +28,6 @@ const Pilotos = connection.define('pilotos', {
     }
 
 });
-//Pilotos.sync({force: true});
+Pilotos.sync({force: true});
 
 module.exports = Pilotos;
