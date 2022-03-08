@@ -108,7 +108,7 @@ const UsuarioP = connection.define('usuariopendente',{
 });
 
 
-//UsuarioP.sync({force: true});
+UsuarioP.sync({force: true});
 
 
 
