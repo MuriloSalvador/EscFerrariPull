@@ -33,6 +33,6 @@ const News = connection.define('news', {
 
 });
 
-News.sync({force: true});
+//News.sync({force: true});
 
 module.exports = News;
