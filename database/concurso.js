@@ -67,7 +67,7 @@ Palpite.belongsTo(RPalpite);
 RPalpite.hasMany(Palpite);
 
 
-Palpite.sync({force: true});
+//Palpite.sync({force: true});
 
 
 
