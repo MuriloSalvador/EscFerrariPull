@@ -33,7 +33,7 @@ const RPalpite = connection.define('rplapite',{
     }
 });
 
-// RPalpite.sync({force: false}).then(() =>{})
+RPalpite.sync({force: false}).then(() =>{})
 // RPalpite.sync({force: true});
 
 module.exports = RPalpite;
