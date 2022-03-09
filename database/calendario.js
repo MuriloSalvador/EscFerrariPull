@@ -62,6 +62,6 @@ const Calendario = connection.define('calendario',{
 });
 
 
-Calendario.sync({force: true});
+//Calendario.sync({force: true});
 
 module.exports = Calendario;
