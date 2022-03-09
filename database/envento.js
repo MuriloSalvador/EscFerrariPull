@@ -41,6 +41,6 @@ const Event = connection.define('eventos', {
 
 });
 
-Event.sync({force: true});
+//Event.sync({force: true});
 
 module.exports = Event;
