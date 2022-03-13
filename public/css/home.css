@@ -90,7 +90,7 @@ color: #F8E518!important;
 
 
 .banner{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-1465-CL-CS1.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.f1mania.net/wp-content/uploads/2022/02/GROUP_WHITE_SPONSOR_JPG_00004.jpg");
   height: 45vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -100,7 +100,7 @@ color: #F8E518!important;
 
 @media only screen and (max-width: 600px) {
   .banner{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../img/SF21-Fronte.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.f1mania.net/wp-content/webp-express/webp-images/uploads/2022/02/F1-75_JPG_SPONSOR_00005.jpg.webp");
     height: 120vw;
     background-position: center;
     background-repeat: no-repeat;
