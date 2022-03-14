@@ -109,7 +109,7 @@ const Usuario = connection.define('usuario',{
 
 
 
-Usuario.sync({force: true});
+//Usuario.sync({force: true});
 
 
 
