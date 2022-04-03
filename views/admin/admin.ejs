@@ -12,7 +12,7 @@
     <title>Admin</title>
 </head>
 
-<body>
+<body onload="myFunction()">
 
     <div>
 
@@ -407,6 +407,7 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control mb-1" id="myInput" onkeyup="myFunction()"
                                         placeholder="Procurar por Etapa" title="Procurar Etapa">
+                                        <h5>Quantidade: <span id="myText"></span></h5>
                                     <table class="table w-100  table-dark border-radius table-responsive-lg">
                                         <thead>
                                             <tr>
@@ -781,6 +782,7 @@
             <script>
                 function myFunction() {
                     var input, filter, table, tr, td, i, txtValue;
+                    let count = 0
                     input = document.getElementById("myInput");
                     filter = input.value.toUpperCase();
                     table = document.getElementById("myTable");
@@ -791,12 +793,17 @@
                             txtValue = td.textContent || td.innerText;
                             if (txtValue.indexOf(filter) > -1) {
                                 tr[i].style.display = "";
+                                count++
+                                console.log(`N: ${count}`)
                             } else {
                                 tr[i].style.display = "none";
                             }
                         }
                     }
+                    document.getElementById("myText").innerHTML = count;
                 }
+
+                
             </script>
 </body>
 
