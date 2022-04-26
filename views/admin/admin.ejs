@@ -56,7 +56,7 @@
                             <a class="nav-link" id="palpites-tab" data-toggle="tab" href="#palpites" role="tab"
                                 aria-controls="palpites" aria-selected="false">Palpites</a>
                         </li>
-                        <li class="nav-item waves-effect waves-light ">
+                        <li class="nav-item waves-effect waves-light" style="display: none;">
 
                             <a class="nav-link" id="envMail-tab" data-toggle="tab" href="#envMail" role="tab"
                                 aria-controls="envMail" aria-selected="false">Enviar email</a>
@@ -68,6 +68,10 @@
                         <li class="nav-item waves-effect waves-light ">
                             <a class="nav-link" id="noticia-tab" data-toggle="tab" href="#noticia" role="tab"
                                 aria-controls="noticia" aria-selected="false">Registrar Noticia</a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light" style="display: none;">
+                            <a class="nav-link" id="almoco-tab" data-toggle="tab" href="#almoco" role="tab"
+                                aria-controls="almoco" aria-selected="false">Registrar Almoço</a>
                         </li>
 
                         <li class="nav-item waves-effect waves-light ">
@@ -579,6 +583,26 @@
 
 
 
+                    </div>
+                    <div class="tab-pane fade" id="almoco" role="tabpanel" aria-labelledby="almoco-tab">
+                        <div class="container">
+                            <form method="POST" action="/admin/cadastrarAlmoco">
+                                <div class="row mt-2">
+
+                                    <div class="col-md-6">
+                                        <input name="titulo" type="text" class="form-control"
+                                            placeholder="Titulo Do Almoço" />
+                                        <input name="assunto" type="file" class="form-control mt-3"
+                                            placeholder="Banner Almoço" />
+                                            <input type="submit" value="Enviar"
+                                        class="btn btn-primary btn-block btnLogin my-5 btn-md">
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="noticia" role="tabpanel" aria-labelledby="noticia-tab">
