@@ -675,6 +675,7 @@ input:checked + .slider:before {
   background-color: #2a2a2a;
   text-decoration: none;
   outline: none !important;
+  z-index: 1;
 }
 
 .bar {
