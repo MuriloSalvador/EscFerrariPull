@@ -2,10 +2,30 @@ const express = require("express")
 const app = express();
 const bodyParser = require("body-parser")
 const connection = require("./database/database")
+const bcrypt = require('bcryptjs')
+const passport = require('passport')
 const session = require('express-session')
+const adminAuth = require('./middleware/adminAuth')
+const fileUpload = require('express-fileupload')
+const multer = require('multer')
+const nodemailer = require('nodemailer');
 require('dotenv').config()
-const loginRouter = require('./database/login');
 
+
+
+
+
+//models
+const UsuarioP = require('./database/usuariosP')
+const News = require("./database/news")
+const Event = require("./database/envento")
+const Pilotos = require("./database/pilotos")
+const Calendario = require("./database/calendario")
+const Usuario = require("./database/Usuario")
+const Palpite = require("./database/concurso")
+const rCorrida = require('./database/rPalpite')
+const loginRouter = require('./database/login');
+zz
 
 
 

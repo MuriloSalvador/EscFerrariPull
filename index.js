@@ -1339,6 +1339,6 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-app.listen(process.env.PORT_ || 3000, () => {
-  console.log("App rodando na porta: ", process.env.PORT_ || 3000);
+app.listen(process.env.PORT || 3000, () => {
+  console.log("App rodando na porta: ", process.env.PORT_);
 });
