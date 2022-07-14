@@ -93,16 +93,16 @@ app.get("/", (req, res) => {
     Event.findAll().then((event) => {
       News.findAll({
         attributes: [
-          'id_news',
-          'titulo',
-          'subtitulo',
-          'img',
-          'descricao',
-          'link'
+          "id_news",
+          "titulo",
+          "subtitulo",
+          "img",
+          "descricao",
+          "link",
         ],
-        group: ['id_news'],
+        group: ["id_news"],
         raw: true,
-        order: Sequelize.literal('id_news desc')
+        order: Sequelize.literal("id_news desc"),
       }).then((news) => {
         if (req.session.user != undefined) {
           res.render("index", {
@@ -113,7 +113,12 @@ app.get("/", (req, res) => {
             news: news,
           });
         } else {
-          res.render("index", { corridas: corridas, log: 0, news: news, user: req.session.user });
+          res.render("index", {
+            corridas: corridas,
+            log: 0,
+            news: news,
+            user: req.session.user,
+          });
         }
       });
     });
@@ -234,32 +239,32 @@ app.post("/admin/cadastraNoticia", adminAuth, (req, res) => {
 
 const storageA = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/img/upload/banners');
+    cb(null, "public/img/upload/banners");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
-  }
+  },
 });
 
 const storageB = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/img/upload/novidades');
+    cb(null, "public/img/upload/novidades");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
-  }
+  },
 });
 
 const destA = multer({ storage: storageA });
 const destB = multer({ storage: storageB });
 
 function fileUpload1(req, res, next) {
-  destA.single('imgBannerConc')(req, res, next);
-  destB.single('imgBannerConc')(req, res, next);
+  destA.single("imgBannerConc")(req, res, next);
+  destB.single("imgBannerConc")(req, res, next);
 }
 
 app.post("/addImageBanner", fileUpload1, (req, res) => {
-  res.redirect('/concurso');
+  res.redirect("/concurso");
 });
 
 // var Storage = multer.diskStorage({
@@ -420,28 +425,48 @@ app.post("/admin/update", adminAuth, (req, res) => {
   });
 });
 
-app.post("/edit/perfil", adminAuth, (req, res) => { });
+app.post("/edit/perfil", adminAuth, (req, res) => {});
 app.post("/admin/updatecalendar", adminAuth, (req, res) => {
   var etapa = req.body.etapa;
   var data = req.body.data_string;
   var corrida = req.body.corrida;
   var horario = req.body.horario;
   var situacao = req.body.situacao;
+  let ano = req.body.ano
+  let calendario = req.body.calendario_data
+  let local = req.body.local
 
-  Calendario.update(
-    {
-      data_string: data,
-      corrida: corrida,
-      horario: horario,
-      situacao: situacao,
-    },
-    {
-      where: {
-        etapa: etapa,
-      },
+  Calendario.findOne({ where: { etapa } }).then((nEtapa) => {
+    if (nEtapa == undefined) {
+      Calendario.create({
+        local,
+        ano,
+        data: calendario,
+        data_string: data,
+        corrida,
+        horario,
+        situacao,
+        etapa,
+      }).then(() => {
+        res.redirect("/admin");
+      });
+    } else {
+      Calendario.update(
+        {
+          data_string: data,
+          corrida,
+          horario,
+          situacao,
+        },
+        {
+          where: {
+            etapa,
+          },
+        }
+      ).then(() => {
+        res.redirect("/admin");
+      });
     }
-  ).then(() => {
-    res.redirect("/admin");
   });
 });
 
@@ -703,16 +728,16 @@ app.get("/admin", adminAuth, (req, res) => {
         Event.findAll().then((evento) => {
           News.findAll({
             attributes: [
-              'id_news',
-              'titulo',
-              'subtitulo',
-              'img',
-              'descricao',
-              'link'
+              "id_news",
+              "titulo",
+              "subtitulo",
+              "img",
+              "descricao",
+              "link",
             ],
-            group: ['id_news'],
+            group: ["id_news"],
             raw: true,
-            order: Sequelize.literal('id_news desc')
+            order: Sequelize.literal("id_news desc"),
           }).then((news) => {
             UsuarioP.findAll().then((usersP) => {
               Palpite.findAll().then((palp) => {
@@ -753,7 +778,6 @@ app.get("/admin", adminAuth, (req, res) => {
                         }
                       );
                     });
-
 
                     res.render("admin/admin", {
                       pilots: pilots,
@@ -856,7 +880,8 @@ app.get("/concurso", adminAuth, (req, res) => {
                 btnStatus: status,
                 msgImg: "",
               });
-            });
+            }
+          );
         });
       });
     })
@@ -939,18 +964,19 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                   (statusBtnEnv) => {
                     var status = statusBtnEnv.p1;
                     console.log("Status: " + status);
-                res.render("concurso", {
-                  pilots: pilots,
-                  nome: req.session.user,
-                  log: 1,
-                  user: req.session.user,
-                  calendar: calendar,
-                  msg: "Palpite enviado com sucesso !!",
-                  nextEtapa: nextEtapa,
-                  btnStatus: status,
-                  msgImg: "",
-                });
-              })
+                    res.render("concurso", {
+                      pilots: pilots,
+                      nome: req.session.user,
+                      log: 1,
+                      user: req.session.user,
+                      calendar: calendar,
+                      msg: "Palpite enviado com sucesso !!",
+                      nextEtapa: nextEtapa,
+                      btnStatus: status,
+                      msgImg: "",
+                    });
+                  }
+                );
               });
             });
           });
@@ -968,18 +994,19 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
                   (statusBtnEnv) => {
                     var status = statusBtnEnv.p1;
                     console.log("Status: " + status);
-                res.render("concurso", {
-                  pilots: pilots,
-                  nome: req.session.user,
-                  log: 1,
-                  user: req.session.user,
-                  calendar: calendar,
-                  msg: "Erro, tente Novamente mais tarde",
-                  nextEtapa: nextEtapa,
-                  btnStatus: status,
-                  msgImg: "",
-                });
-              })
+                    res.render("concurso", {
+                      pilots: pilots,
+                      nome: req.session.user,
+                      log: 1,
+                      user: req.session.user,
+                      calendar: calendar,
+                      msg: "Erro, tente Novamente mais tarde",
+                      nextEtapa: nextEtapa,
+                      btnStatus: status,
+                      msgImg: "",
+                    });
+                  }
+                );
               });
             });
           });
@@ -997,18 +1024,19 @@ app.post("/salvarPalpite", adminAuth, (req, res) => {
               (statusBtnEnv) => {
                 var status = statusBtnEnv.p1;
                 console.log("Status: " + status);
-            res.render("concurso", {
-              pilots: pilots,
-              nome: req.session.user,
-              log: 1,
-              user: req.session.user,
-              calendar: calendar,
-              msg: "!!! Palpite já cadastrado para está etapa !!!",
-              nextEtapa: nextEtapa,
-              btnStatus: status,
-              msgImg: "",
-            });
-          });
+                res.render("concurso", {
+                  pilots: pilots,
+                  nome: req.session.user,
+                  log: 1,
+                  user: req.session.user,
+                  calendar: calendar,
+                  msg: "!!! Palpite já cadastrado para está etapa !!!",
+                  nextEtapa: nextEtapa,
+                  btnStatus: status,
+                  msgImg: "",
+                });
+              }
+            );
           });
         });
       });
@@ -1309,7 +1337,7 @@ app.post("/cadastraresultado", adminAuth, (req, res) => {
 });
 //ideia 1 - lista, array
 
-app.get("/calc", (req, res) => { });
+app.get("/calc", (req, res) => {});
 
 // async function siduhfuis9() { const solta = await Palpite.findAll({
 //     attributes: ['idUsuario', [Sequelize.fn('sum', Sequelize.col('pontos1')), 'total']],

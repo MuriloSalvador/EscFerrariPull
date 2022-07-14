@@ -232,14 +232,14 @@
                                                     <select class="form-control" id="etapa" name="etapa">
                                                         <% calendar.forEach(calendar=>{ %>
 
-                                                            <% if (ultimaEtapa < calendar.id) { %>
+                                                            
                                                                 <option value="<%=calendar.id%>" class="optionEtapa">
 
 
                                                                     GP <%=calendar.id%> | <%= calendar.local %>
 
                                                                 </option>
-                                                                <%}%>
+                                                                
 
                                                                     <%})%>
                                                     </select> <br><br><br>
@@ -701,33 +701,48 @@
                         <div class="container">
 
                             <form method="POST" action="/admin/updatecalendar">
-                                <div class="row mt-2">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <input name="etapa" type="number" class="form-control mt-3"
-                                                placeholder="Etapa" />
+                                <div class="mt-2">
+                                    
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <input name="etapa" type="number" class="form-control mt-3"
+                                                    placeholder="Etapa" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input name="data_string" type="text" class="form-control mt-3"
+                                                    placeholder="Data da corrida ex: 28 de Março" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input name="corrida" type="text" class="form-control mt-3"
+                                                    placeholder="Local da corrida" />
+                                            </div>
+    
+                                            <div class="col-md-2">
+                                                <input name="horario" type="time" class="form-control mt-3"
+                                                    placeholder="Horario" />
+                                            </div>
+                                            
                                         </div>
-                                        <div class="col-md-4">
-                                            <input name="data_string" type="text" class="form-control mt-3"
-                                                placeholder="Data da corrida ex: 28 de Março" />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input name="corrida" type="text" class="form-control mt-3"
-                                                placeholder="Local da corrida" />
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <input name="horario" type="time" class="form-control mt-3"
-                                                placeholder="Horario" />
-                                        </div>
-                                        <div class="row w-100">
-                                            <div class="col-md-3"></div>
-                                            <div class="col-md-6">
+                                        <div class="row w-100 m-0 justify-content-center">
+                                            <div class="col-md-3">
+                                                <input name="calendario_data" type="date" class="form-control mt-3 text-center"
+                                                    placeholder="Marcar no calendario" />
+                                            </div>
+                                            <div class="col-md-3">
                                                 <input name="situacao" type="text" class="form-control mt-3 text-center"
                                                     placeholder="Situação da corrida" />
                                             </div>
 
-                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3">
+                                                <input name="local" type="text" class="form-control mt-3 text-center"
+                                                    placeholder="Circuito da corrida" />
+                                            </div>
+    
+                                            <div class="col-md-3">
+                                                <input name="ano" type="number" class="form-control mt-3 text-center"
+                                                placeholder="Ano da corrida" />
+                                            </div>
                                         </div>
                                     </div>
 
