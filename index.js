@@ -1,33 +1,38 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const connection = require("./database/database");
+import connection from "./database/database.js";
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const session = require("express-session");
-const adminAuth = require("./middleware/adminAuth");
+import adminAuth from "./middleware/adminAuth.js";
 const fileUpload = require("express-fileupload");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
+import imgController from "./middleware/awsImagensController.js";
+import multerConfig from "./config/multer.js";
 require("dotenv").config();
 
 //models
-const UsuarioP = require("./database/usuariosP");
-const News = require("./database/news");
-const Event = require("./database/envento");
-const Pilotos = require("./database/pilotos");
-const Calendario = require("./database/calendario");
-const Usuario = require("./database/Usuario");
-const Palpite = require("./database/concurso");
-const rCorrida = require("./database/rPalpite");
-const loginRouter = require("./database/login");
-const router = require("./database/login");
-const { callbackify } = require("util");
-const RPalpite = require("./database/rPalpite");
-const Sequelize = require("sequelize");
-const { Console } = require("console");
-const { where } = require("sequelize");
-const { stat } = require("fs");
+import UsuarioP from "./database/usuariosP.js";
+import News from "./database/news.js";
+import Event from "./database/envento.js";
+import Pilotos from "./database/pilotos.js";
+import Calendario from "./database/calendario.js";
+import Usuario from "./database/Usuario.js";
+import Palpite from "./database/concurso.js";
+import rCorrida from "./database/rPalpite.js";
+import loginRouter from "./database/login.js";
+import router from "./database/login.js";
+import { callbackify } from "util";
+import RPalpite from "./database/rPalpite.js";
+import Sequelize from "sequelize";
+import { Console } from "console";
+import { where } from "sequelize";
+import { stat } from "fs";
 
 var msg = false;
 var erro = false;
@@ -44,10 +49,6 @@ app.use("/favicon.ico", express.static("public/img/favicon.ico"));
 
 app.use("/login", loginRouter);
 app.set("view engine", "ejs");
-
-//Redis
-
-//Sessions
 
 app.use(
   session({
@@ -111,6 +112,7 @@ app.get("/", (req, res) => {
             user: req.session.user,
             event: event,
             news: news,
+            msg:""
           });
         } else {
           res.render("index", {
@@ -118,6 +120,7 @@ app.get("/", (req, res) => {
             log: 0,
             news: news,
             user: req.session.user,
+            msg:""
           });
         }
       });
@@ -209,7 +212,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer(multerConfig);
 
 app.post("/admin/addImage", upload.single("imgNewsDB"), (req, res) => {
   res.send("arquivo enviado, Continue o cadastro da Novidade");
@@ -432,9 +435,9 @@ app.post("/admin/updatecalendar", adminAuth, (req, res) => {
   var corrida = req.body.corrida;
   var horario = req.body.horario;
   var situacao = req.body.situacao;
-  let ano = req.body.ano
-  let calendario = req.body.calendario_data
-  let local = req.body.local
+  let ano = req.body.ano;
+  let calendario = req.body.calendario_data;
+  let local = req.body.local;
 
   Calendario.findOne({ where: { etapa } }).then((nEtapa) => {
     if (nEtapa == undefined) {
@@ -1154,7 +1157,31 @@ app.post("/auth", (req, res) => {
 
             res.redirect("/concurso");
           } else {
-            res.send("Erro Tente novamente mais tarde");
+            Calendario.findAll().then((corridas) => {
+              Event.findAll().then((event) => {
+                News.findAll({
+                  attributes: [
+                    "id_news",
+                    "titulo",
+                    "subtitulo",
+                    "img",
+                    "descricao",
+                    "link",
+                  ],
+                  group: ["id_news"],
+                  raw: true,
+                  order: Sequelize.literal("id_news desc"),
+                }).then((news) => {
+                  res.render("index", {
+                    corridas: corridas,
+                    log: 0,
+                    news: news,
+                    user: req.session.user,
+                    msg:"!! Email ou senha Invalidos !!"
+                  });
+                });
+              });
+            });
           }
         } else {
           res.redirect("/");
@@ -1171,7 +1198,7 @@ var auxTotal;
 Usuario.findAll().then((usCal) => {
   usCal.forEach((calculoT) => {
     auxTotal = calculoT.pontos;
-    t = auxTotal;
+    const t = auxTotal;
 
     console.log("id: ", calculoT.id, "pontos acumulados: ", auxTotal);
   });
@@ -1361,6 +1388,10 @@ app.get("/calc", (req, res) => {});
 // }
 
 // console.log(siduhfuis9())
+
+app.post("/cadastrarImagem", upload.single("image"), (req, res) => {
+  return res.send("200");
+});
 
 app.get("/logout", (req, res) => {
   req.session.user = undefined;

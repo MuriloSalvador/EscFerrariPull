@@ -1,4 +1,7 @@
-const Sequelize = require('sequelize')
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+import Sequelize from 'sequelize'
 require('dotenv').config()
 
 const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
@@ -8,4 +11,4 @@ const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proce
     timezone: '-03:00'
 })
 
-module.exports = connection;
+export default connection

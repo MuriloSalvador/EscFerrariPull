@@ -1,8 +1,5 @@
-const Sequelize = require("sequelize")
-const connection = require("./database")
-
-
-
+import Sequelize from "sequelize"
+import connection from "./database.js"
 
 const News = connection.define('news', {
     id_news: {
@@ -35,4 +32,4 @@ const News = connection.define('news', {
 
 //News.sync({force: true});
 
-module.exports = News;
+export default News

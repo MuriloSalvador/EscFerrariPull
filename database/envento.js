@@ -1,8 +1,5 @@
-const Sequelize = require("sequelize")
-const connection = require("./database")
-
-
-
+import Sequelize from "sequelize"
+import connection from "./database.js"
 
 const Event = connection.define('eventos', {
     id_evento: {
@@ -43,4 +40,4 @@ const Event = connection.define('eventos', {
 
 //Event.sync({force: true});
 
-module.exports = Event;
+export default Event
