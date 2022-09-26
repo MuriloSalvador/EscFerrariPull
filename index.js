@@ -1,6 +1,5 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -683,6 +682,7 @@ app.post("/admin/envMail", adminAuth, (req, res) => {
     var assunto = req.body.assuntoMail;
     var corpo = req.body.corpoMail;
     // var resultado = req.body.resultadoPDF
+    let emailBody = emailTemplate
 
     async function getEmails() {
       const emails = await Usuario.findAll({
@@ -704,11 +704,7 @@ app.post("/admin/envMail", adminAuth, (req, res) => {
             replyTo: "marioantonio@enas.org.br",
             subject: assunto,
             text: corpo,
-            // html: "<h1>Escuderia Ferrari San Paolo</h1>"
-            // attachments: [{
-            //     filename: 'Resultados.pdf',
-            //     path: resultado
-            // }]
+            html: "<h1>Escuderia Ferrari San Paolo</h1>"
           })
           .then(() => {
             res.send("Email enviado com sucesso");
@@ -1177,7 +1173,7 @@ app.post("/auth", (req, res) => {
                     log: 0,
                     news: news,
                     user: req.session.user,
-                    msg:"!! Email ou senha Invalidos !!"
+                    msg:" ⚠️ Email ou senha Invalidos ⚠️"
                   });
                 });
               });
