@@ -1,8 +1,5 @@
-const Sequelize = require("sequelize")
-const connection = require("./database")
-
-
-
+import Sequelize from "sequelize"
+import connection from "./database.js"
 
 const Pilotos = connection.define('pilotos', {
     id_piloto: {
@@ -30,4 +27,4 @@ const Pilotos = connection.define('pilotos', {
 });
 //Pilotos.sync({force: true});
 
-module.exports = Pilotos;
+export default Pilotos

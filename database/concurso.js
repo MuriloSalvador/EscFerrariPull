@@ -1,13 +1,8 @@
-const Sequelize = require("sequelize")
-const connection = require("./database")
-const Calendario = require("./calendario")
-const Usuario = require("./Usuario")
-const Pilotos = require("./pilotos")
-const RPalpite = require("./rPalpite")
-
-
-
-
+import Sequelize from "sequelize"
+import connection from "./database.js"
+import Calendario from "./calendario.js"
+import Usuario from "./Usuario.js"
+import RPalpite from "./rPalpite.js"
 
 const Palpite = connection.define('palpite',{
     idUsuario:{
@@ -69,6 +64,4 @@ RPalpite.hasMany(Palpite);
 
 //Palpite.sync({force: true});
 
-
-
-module.exports = Palpite;
+export default Palpite

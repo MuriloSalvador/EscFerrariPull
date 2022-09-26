@@ -1,6 +1,5 @@
-const Sequelize = require("sequelize")
-
-const connection = require("./database")
+import Sequelize from "sequelize"
+import connection from "./database.js"
 
 const RPalpite = connection.define('rplapite',{
     id_Usuario:{
@@ -36,4 +35,4 @@ const RPalpite = connection.define('rplapite',{
 //RPalpite.sync({force: false}).then(() =>{})
 // RPalpite.sync({force: true});
 
-module.exports = RPalpite;
+export default RPalpite

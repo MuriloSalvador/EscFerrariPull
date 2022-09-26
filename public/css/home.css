@@ -720,3 +720,7 @@ input:checked + .slider:before {
   background-position: center;
   border-radius: 10px;
 }
+
+.msg-login{
+  color: #f8e518;
+}

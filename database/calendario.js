@@ -1,9 +1,5 @@
-const Sequelize = require("sequelize")
-const connection = require("./database")
-
-
-
-
+import Sequelize from "sequelize"
+import connection from "./database.js"
 
 const Calendario = connection.define('calendario',{
     ano:{
@@ -64,4 +60,4 @@ const Calendario = connection.define('calendario',{
 
 //Calendario.sync({force: true});
 
-module.exports = Calendario;
+export default Calendario

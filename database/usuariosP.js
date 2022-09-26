@@ -1,11 +1,7 @@
-const Sequelize = require("sequelize")
-const connection = require("./database")
-
-
-
+import Sequelize from "sequelize"
+import connection from "./database.js"
 
 const UsuarioP = connection.define('usuariopendente',{
-
 
     //info usuario init
     email:{
@@ -107,10 +103,6 @@ const UsuarioP = connection.define('usuariopendente',{
     
 });
 
-
 //UsuarioP.sync({force: true});
 
-
-
-
-module.exports = UsuarioP;
+export default UsuarioP
